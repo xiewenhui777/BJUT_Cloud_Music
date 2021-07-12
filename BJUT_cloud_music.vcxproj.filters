@@ -1,0 +1,321 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Form Files">
+      <UniqueIdentifier>{99349809-55BA-4b9d-BF79-8FDBB0286EB3}</UniqueIdentifier>
+      <Extensions>ui</Extensions>
+      <ParseFiles>false</ParseFiles>
+    </Filter>
+    <Filter Include="Form Files">
+      <UniqueIdentifier>{99349809-55BA-4b9d-BF79-8FDBB0286EB3}</UniqueIdentifier>
+      <Extensions>ui</Extensions>
+      <ParseFiles>false</ParseFiles>
+    </Filter>
+    <Filter Include="Generated Files">
+      <UniqueIdentifier>{71ED8ED8-ACB9-4CE9-BBE1-E00B30144E11}</UniqueIdentifier>
+      <Extensions>cpp;c;cxx;moc;h;def;odl;idl;res;</Extensions>
+    </Filter>
+    <Filter Include="Generated Files">
+      <UniqueIdentifier>{71ED8ED8-ACB9-4CE9-BBE1-E00B30144E11}</UniqueIdentifier>
+      <Extensions>cpp;c;cxx;moc;h;def;odl;idl;res;</Extensions>
+    </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hpp;hxx;hm;inl;inc;xsd</Extensions>
+    </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hpp;hxx;hm;inl;inc;xsd</Extensions>
+    </Filter>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{D9D6E242-F8AF-46E4-B9FD-80ECBC20BA3E}</UniqueIdentifier>
+      <Extensions>qrc;*</Extensions>
+      <ParseFiles>false</ParseFiles>
+    </Filter>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{D9D6E242-F8AF-46E4-B9FD-80ECBC20BA3E}</UniqueIdentifier>
+      <Extensions>qrc;*</Extensions>
+      <ParseFiles>false</ParseFiles>
+    </Filter>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="LyricWidget.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="MainWidget.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Music.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="MusicList.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="MusicListDialog.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="MusicListWidget.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="main.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <QtMoc Include="LyricWidget.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
+    <QtMoc Include="MainWidget.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
+    <ClInclude Include="Music.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="MusicList.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <QtMoc Include="MusicListDialog.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
+    <QtMoc Include="MusicListWidget.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
+    <ClInclude Include="myQSS.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    
+    
+    
+    
+    
+    
+    
+    
+    <CustomBuild Include="debug\moc_predefs.h.cbt">
+      <Filter>Generated Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="release\moc_predefs.h.cbt">
+      <Filter>Generated Files</Filter>
+    </CustomBuild>
+    
+    
+    
+    
+    
+  </ItemGroup>
+  <ItemGroup>
+    <QtUic Include="LyricWidget.ui">
+      <Filter>Form Files</Filter>
+    </QtUic>
+    <QtUic Include="MusicListDialog.ui">
+      <Filter>Form Files</Filter>
+    </QtUic>
+    <QtUic Include="mainWidget.ui">
+      <Filter>Form Files</Filter>
+    </QtUic>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="image\image\MusicListItem.png">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="image\image\MyPlayer.png">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="image\image\Title.png">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="image\image\To-like.png">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="image\image\To-playlist.png">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="image\image\about.png">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="image\image-hover\add-hover.png">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="image\image\add.png">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="image\image\addFromLocal.png">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="image\image\clear.png">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="image\image\current-music.png">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="image\background\default.jpg">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="image\image\default.png">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="image\image\detail.png">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="image\image\dialog-music.png">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="image\image\duration.png">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="image\image\exit.png">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="image\image\favo-music.png">
+      <Filter>Resource Files</Filter>
+    </None>
+    <QtRcc Include="imagefile.qrc">
+      <Filter>Resource Files</Filter>
+    </QtRcc>
+    <None Include="image\image\like.png">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="image\image\local-music.png">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="image\image-hover\loop-hover.png">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="image\image-hover\loop-one-hover.png">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="image\image\loop-one.png">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="image\image\loop-one2.png">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="image\image\loop.png">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="image\image\loop2.png">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="image\image\lyric.png">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="image\image\min.png">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="image\image\music-dir.png">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="image\image\music-file.png">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="image\image\music-playing.png">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="image\image-hover\music-voice-hover.png">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="image\image\music-voice.png">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="image\image\music.png">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="image\image\music_list.png">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="image\image\myMusicList.png">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="image\image-hover\next-hover.png">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="image\image\next.png">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="image\image\next2.png">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="image\image\non-music.png">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="image\image-hover\pase-hover.png">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="image\image\pase.png">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="image\image\pause2.png">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="image\image-hover\play-hover.png">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="image\image-hover\play-random-hover.png">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="image\image\play-random.png">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="image\image\play.png">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="image\image\play2.png">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="image\image-hover\pre-hover.png">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="image\image\pre.png">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="image\image\pre2.png">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="image\image\quit.png">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="image\image\random2.png">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="image\image\remove.png">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="image\image\remove_dup.png">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="image\image\setting.png">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="image\image\singer.png">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="image\image\skin.png">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="image\image\sliderHandle.png">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="image\image\sort-alpha-asc_ea48_ether.png">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="image\image\systemTrayIcon.png">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="image\image\volumeHandle.png">
+      <Filter>Resource Files</Filter>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="D:\QT project\MUSIC\LightMusicPlayer\LightMusicPlayer_resource.rc" />
+  </ItemGroup>
+</Project>
