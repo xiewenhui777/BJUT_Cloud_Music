@@ -44,7 +44,6 @@ MainWidget::MainWidget(QWidget *parent) :
     //系统托盘初始化（系统托盘即指播放的一些设置 如播放/暂停按键等设计）
     init_systemTrayIcon();
     tcpSocket=new QTcpSocket();
-
     tcpSocket->abort();
     //连接服务器
     tcpSocket->connectToHost("10.24.10.40", 8520);
@@ -1075,34 +1074,33 @@ void MainWidget::on_musicsraech_clicked(){
 //    dialog1.exec();            //搜索框退出
     //this->show();
 
-//    QString strText = ui->SearchlineEdit->text();
-//    //若在数据库中搜寻到某个歌曲 则显将结果显示在搜索弹框中
-//    if (!strText.isEmpty())             //此处应该修改为当搜索不到歌曲时  则显示“无当前搜索歌曲”（这得结合数据库去实现）
-//    {
+    QString strText = ui->SearchlineEdit->text();
+    //若在数据库中搜寻到某个歌曲 则显将结果显示在搜索弹框中
+    if (!strText.isEmpty())             //此处应该修改为当搜索不到歌曲时  则显示“无当前搜索歌曲”（这得结合数据库去实现）
+    {
+        chuanshu *ss=new chuanshu("0######0#");
+        ss->type = 17;
+        ss->info = ui->SearchlineEdit->text();
+        ss->timer = "";
+        ss->name = userID;
+        ss->fileName = "";
+        ss->wantsendto = "";
+        ss->size = 0;
+        ss->ip = "";
 
-//        chuanshu *ss=new chuanshu("0######0#");
-//        ss->type = 17;
-//        ss->info = ui->SearchlineEdit->text();
-//        ss->timer = "";
-//        ss->name = userID;
-//        ss->fileName = "";
-//        ss->wantsendto = "";
-//        ss->size = 0;
-//        ss->ip = "";
-
-//        QString sender="";
-//        sender+=QString::number(ss->type)+"#"+(QString)ss->info+"#"+(QString)ss->timer+"#"+(QString)ss->name+"#"+(QString)ss->fileName+"#"+(QString)ss->wantsendto+"#"+QString::number(ss->size)+"#"+(QString)ss->ip;
+        QString sender="";
+        sender+=QString::number(ss->type)+"#"+(QString)ss->info+"#"+(QString)ss->timer+"#"+(QString)ss->name+"#"+(QString)ss->fileName+"#"+(QString)ss->wantsendto+"#"+QString::number(ss->size)+"#"+(QString)ss->ip;
 
 //        // 发送
-//        char la=0xff;
-//        qDebug() <<sender.toUtf8();
-//        tcpSocket->write(sender.toUtf8()+la);
-//        tcpSocket->flush();
+        char la=0xff;
+        qDebug() <<sender.toUtf8();
+        tcpSocket->write(sender.toUtf8()+la);
+        tcpSocket->flush();
 //        qDebug() <<"search send";
 
 
-//        QMessageBox::information(this, QStringLiteral("搜索"), QStringLiteral("搜索内容为%1").arg(strText));
-//    }
+        QMessageBox::information(this, QStringLiteral("搜索"), QStringLiteral("搜索内容为%1").arg(strText));
+    }
 }
 
 void MainWidget::on_btnMusiclist_clicked(){

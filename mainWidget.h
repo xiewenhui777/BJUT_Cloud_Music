@@ -38,10 +38,10 @@ public:
     int doExec();
 
     //传输函数  用于传输用户ID和socket
-    void transfer(QTcpSocket *Socket,QString userid){
-        tcpSocket=Socket;
-        userID=userid;
-    }
+//    void transfer(QTcpSocket *Socket,QString userid){
+//        tcpSocket=Socket;
+//        userID=userid;
+//    }
     
 private:
     Ui::Widget *ui;
