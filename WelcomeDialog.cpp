@@ -16,6 +16,6 @@ WelcomeDialog::~WelcomeDialog()
 
 void WelcomeDialog::goon(){     //继续显示软件的主界面
     this->hide();         //欢迎界面隐藏
-    mainwidget.show();         //展示主界面
-//    landwidget.show();     //展示登录界面
+//    mainwidget.show();         //展示主界面
+    landwidget.show();     //展示登录界面
 }

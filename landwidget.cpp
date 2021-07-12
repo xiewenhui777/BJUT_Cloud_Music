@@ -21,21 +21,21 @@ LandWidget::LandWidget(QWidget *parent) :
 //    QObject::connect(tcpSocket, &QTcpSocket::readyRead, this, socket_Read_Data);
     //连接服务器
 
-    tcpSocket=new QTcpSocket();
+//    tcpSocket=new QTcpSocket();
 
-    tcpSocket->abort();
-    //连接服务器
-    tcpSocket->connectToHost("10.24.0.212", 8520);
+//    tcpSocket->abort();
+//    //连接服务器
+//    tcpSocket->connectToHost("10.24.10.40", 8520);
 
-    //等待连接成功
-    if(!tcpSocket->waitForConnected(30000))
-    {
-        qDebug() << "Connection failed!";
-        return;
-    }
-    qDebug() << "Connect successfully!";
+//    //等待连接成功
+//    if(!tcpSocket->waitForConnected(30000))
+//    {
+//        qDebug() << "Connection failed!";
+//        return;
+//    }
+//    qDebug() << "Connect successfully!";
 
-    QObject::connect(tcpSocket, &QTcpSocket::readyRead, this, &LandWidget::socket_Read_Data);
+//    QObject::connect(tcpSocket, &QTcpSocket::readyRead, this, &LandWidget::socket_Read_Data);
 
 //    char la=0xff;
 //    QString send= "111";
@@ -70,12 +70,12 @@ LandWidget::LandWidget(QWidget *parent) :
     qDebug()<<"exit2";
 }
 
-void LandWidget::setTcpSocket(QTcpSocket *tcp)
-{
-    //设置通信套接字
-    tcpSocket = tcp;
-    connect(tcpSocket,SIGNAL(readyRead()),this,SLOT(slotDataRecv()));   //将收到服务器消息信号与槽函数建立连接
-}
+//void LandWidget::setTcpSocket(QTcpSocket *tcp)
+//{
+//    //设置通信套接字
+//    tcpSocket = tcp;
+//    connect(tcpSocket,SIGNAL(readyRead()),this,SLOT(slotDataRecv()));   //将收到服务器消息信号与槽函数建立连接
+//}
 
 
 LandWidget::~LandWidget()
@@ -166,18 +166,18 @@ bool LandWidget::judgement(QByteArray array)
     return false;
 }
 
-void LandWidget::slotDataRecv()
-{
-    //收到服务器消息时
-    if(judgement(tcpSocket->readAll()))//读取服务器消息并判断
-    {
-        //服务器返回登陆信息正确
-        emit landSuccess(); //给主窗口发送登陆成功信号
-    }
-    else{
+//void LandWidget::slotDataRecv()
+//{
+//    //收到服务器消息时
+//    if(judgement(tcpSocket->readAll()))//读取服务器消息并判断
+//    {
+//        //服务器返回登陆信息正确
+//        emit landSuccess(); //给主窗口发送登陆成功信号
+//    }
+//    else{
 
-    }
-}
+//    }
+//}
 void LandWidget::on_login_clicked()
 {
 
@@ -281,7 +281,7 @@ void LandWidget::on_login_clicked()
     extern int quit_login;
     quit_login=0;           //退出状态重置
     this->hide();           //登录界面隐藏起来
-//    mainwidget = new MainWidget;
+    mainwidget = new MainWidget;
 //    mainwidget->transfer(tcpSocket,ss->name);
 
 
@@ -311,22 +311,22 @@ void LandWidget::on_login_clicked()
     sender1+=QString::number(start->type)+"#"+(QString)start->info+"#"+(QString)start->timer+"#"+(QString)start->name+"#"+(QString)start->fileName+"#"+(QString)start->wantsendto+"#"+QString::number(start->size)+"#"+(QString)start->ip;
 
 //     发送
-    char la=0xff;
-    qDebug() <<sender1.toUtf8();
-    tcpSocket->write(sender1.toUtf8()+la);
-    tcpSocket->flush();
-    qDebug() <<"send over";
+//    char la=0xff;
+//    qDebug() <<sender1.toUtf8();
+//    tcpSocket->write(sender1.toUtf8()+la);
+//    tcpSocket->flush();
+//    qDebug() <<"send over";
 
 
     //断开连接
 //    QObject::disconnect(tcpSocket, &QTcpSocket::readyRead, this, &LandWidget::socket_Read_Data);
-//    mainwidget->show();
+    mainwidget->show();
 
-//    if(mainwidget->doExec() == MainWidget::Rejected){           //代表主界面的退出  因此result的状态会设置为rejected
-//        this->show();
-//        qDebug()<<"quit1"<<endl;
+    if(mainwidget->doExec() == MainWidget::Rejected){           //代表主界面的退出  因此result的状态会设置为rejected
+        this->show();
+        qDebug()<<"quit1"<<endl;
 
-//    }
+    }
 
 }
 QString LandWidget::landPack(int id, QString password)
@@ -373,34 +373,34 @@ void LandWidget::findPasswod_clicked()        //找回密码的按钮
     forget1.exec();
 }
 
-void LandWidget::socket_Read_Data()
-{
-    qDebug()<<"socket_Read_Data";
-    QByteArray buffer;
-    //读取缓冲区数据
-    buffer = tcpSocket->readAll();
+//void LandWidget::socket_Read_Data()
+//{
+//    qDebug()<<"socket_Read_Data";
+//    QByteArray buffer;
+//    //读取缓冲区数据
+//    buffer = tcpSocket->readAll();
 
-    if(!buffer.isEmpty())
-    {
-        str=QString::fromLocal8Bit(buffer.data());//将收到的utf-8格式转换回String
-        qDebug()<<"rec:"<<str;
-//        ui->id->clear();
-//        ui->id->setText(str);
-    }
+//    if(!buffer.isEmpty())
+//    {
+//        str=QString::fromLocal8Bit(buffer.data());//将收到的utf-8格式转换回String
+//        qDebug()<<"rec:"<<str;
+////        ui->id->clear();
+////        ui->id->setText(str);
+//    }
 
-    QStringList sstr=str.split("#");
-    qDebug()<<"type:"<<sstr[0].toInt();
+//    QStringList sstr=str.split("#");
+//    qDebug()<<"type:"<<sstr[0].toInt();
 
 
-    if(sstr[0].toInt()==3){        //判断回传包的类型
-        qDebug()<<"s1";
-        QStringList arguments;//用于传参数
-        QString program = "D:\\Transfer\\receive.exe"; //外部程序地址
-        arguments <<"10.24.0.212"<<"8888";
-        qDebug()<<"s2";
-        QProcess process(this);
-        process.startDetached(program, arguments);//启动程序
-        process.close();
-        qDebug()<<"s3";
-    }
-}
+//    if(sstr[0].toInt()==3){        //判断回传包的类型
+//        qDebug()<<"s1";
+//        QStringList arguments;//用于传参数
+//        QString program = "D:\\Transfer\\receive.exe"; //外部程序地址
+//        arguments <<"10.24.10.40"<<"8888";
+//        qDebug()<<"s2";
+//        QProcess process(this);
+//        process.startDetached(program, arguments);//启动程序
+//        process.close();
+//        qDebug()<<"s3";
+//    }
+//}

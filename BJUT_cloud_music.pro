@@ -46,7 +46,8 @@ SOURCES += \
     feedbackdialog.cpp \
     frienddialog.cpp \
     frilist.cpp \
-    chuanshu.cpp
+    chuanshu.cpp \
+    logindialog.cpp
 
 HEADERS += \
     Music.h \
@@ -69,7 +70,8 @@ HEADERS += \
     feedbackdialog.h \
     frienddialog.h \
     frilist.h \
-    chuanshu.h
+    chuanshu.h \
+    logindialog.h
 
 FORMS += \
     MusicListDialog.ui \
@@ -86,7 +88,8 @@ FORMS += \
     chat.ui \
     comment.ui \
     feedbackdialog.ui \
-    frienddialog.ui
+    frienddialog.ui \
+    logindialog.ui
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin

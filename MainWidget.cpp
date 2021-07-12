@@ -11,6 +11,8 @@
 #include <QMessageBox>
 #include <QInputDialog>
 #include "MusicListDialog.h"
+#include "chuanshu.h"
+#include <QProcess>
 
 MainWidget::MainWidget(QWidget *parent) :
     QWidget(parent),
@@ -41,6 +43,20 @@ MainWidget::MainWidget(QWidget *parent) :
     
     //系统托盘初始化（系统托盘即指播放的一些设置 如播放/暂停按键等设计）
     init_systemTrayIcon();
+    tcpSocket=new QTcpSocket();
+
+    tcpSocket->abort();
+    //连接服务器
+    tcpSocket->connectToHost("10.24.10.40", 8520);
+
+    //等待连接成功
+    if(!tcpSocket->waitForConnected(30000))
+    {
+        qDebug() << "Connection failed!";
+        return;
+    }
+    qDebug() << "Connect successfully!";
+    QObject::connect(tcpSocket, &QTcpSocket::readyRead, this, &MainWidget::socket_Read_Data);
 }
 
 MainWidget::~MainWidget()
@@ -190,7 +206,7 @@ void MainWidget::init_actions()         //一系列的动作
     //歌曲搜索按钮的实现
     connect(ui->MusicSearch,SIGNAL(clicked()), this,SLOT(on_musicsraech_clicked()));
     connect(ui->comment,SIGNAL(clicked()), this,SLOT(on_commment_clicked()));
-
+    connect(ui->login,SIGNAL(clicked()), this,SLOT(on_login_clicked()));
 //    connect(ui->btnPersonal,SIGNAL(clicked()), this,SLOT(on_btnPersonal_clicked()));
 
 }
@@ -1054,10 +1070,39 @@ void MainWidget::on_btnAbout_clicked()
 
 void MainWidget::on_musicsraech_clicked(){
     //this->hide();         //背景主界面不应该被藏起来
-    dialog1.transfer(tcpSocket,userID);         //进行参数传递
-    dialog1.show();         //展示搜索框
-    dialog1.exec();            //搜索框退出
+//    dialog1.transfer(tcpSocket,userID);         //进行参数传递
+//    dialog1.show();         //展示搜索框
+//    dialog1.exec();            //搜索框退出
     //this->show();
+
+//    QString strText = ui->SearchlineEdit->text();
+//    //若在数据库中搜寻到某个歌曲 则显将结果显示在搜索弹框中
+//    if (!strText.isEmpty())             //此处应该修改为当搜索不到歌曲时  则显示“无当前搜索歌曲”（这得结合数据库去实现）
+//    {
+
+//        chuanshu *ss=new chuanshu("0######0#");
+//        ss->type = 17;
+//        ss->info = ui->SearchlineEdit->text();
+//        ss->timer = "";
+//        ss->name = userID;
+//        ss->fileName = "";
+//        ss->wantsendto = "";
+//        ss->size = 0;
+//        ss->ip = "";
+
+//        QString sender="";
+//        sender+=QString::number(ss->type)+"#"+(QString)ss->info+"#"+(QString)ss->timer+"#"+(QString)ss->name+"#"+(QString)ss->fileName+"#"+(QString)ss->wantsendto+"#"+QString::number(ss->size)+"#"+(QString)ss->ip;
+
+//        // 发送
+//        char la=0xff;
+//        qDebug() <<sender.toUtf8();
+//        tcpSocket->write(sender.toUtf8()+la);
+//        tcpSocket->flush();
+//        qDebug() <<"search send";
+
+
+//        QMessageBox::information(this, QStringLiteral("搜索"), QStringLiteral("搜索内容为%1").arg(strText));
+//    }
 }
 
 void MainWidget::on_btnMusiclist_clicked(){
@@ -1110,5 +1155,40 @@ void MainWidget::on_commment_clicked(){
     commentDialog.exec();           //评论界面退出
 }
 
+void MainWidget::on_login_clicked(){
+    login1.show();
+    login1.exec();
+}
 
+void MainWidget::socket_Read_Data()
+{
+    qDebug()<<"mainwidget";
+    QByteArray buffer;
+    //读取缓冲区数据
+    buffer = tcpSocket->readAll();
+
+    if(!buffer.isEmpty())
+    {
+        str=QString::fromLocal8Bit(buffer.data());//将收到的utf-8格式转换回String
+        qDebug()<<"rec:"<<str;
+//        ui->id->clear();
+//        ui->id->setText(str);
+    }
+
+    QStringList sstr=str.split("#");
+    qDebug()<<"type:"<<sstr[0].toInt();
+
+
+    if(sstr[0].toInt()==3){        //判断回传包的类型
+        qDebug()<<"s1";
+        QStringList arguments;//用于传参数
+        QString program = "D:\\Transfer\\receive.exe"; //外部程序地址
+        arguments <<"10.24.10.40"<<"8888";
+        qDebug()<<"s2";
+        QProcess process(this);
+        process.startDetached(program, arguments);//启动程序
+        process.close();
+        qDebug()<<"s3";
+    }
+}
 

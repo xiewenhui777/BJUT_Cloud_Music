@@ -3,7 +3,7 @@
 
 #include <QDialog>
 #include "mainWidget.h"
-//#include "landwidget.h"
+#include "landwidget.h"
 
 namespace Ui {
 class WelcomeDialog;
@@ -19,8 +19,8 @@ public:
 
 private:
     Ui::WelcomeDialog *ui;
-//    LandWidget landwidget;      //登录界面的实例
-    MainWidget mainwidget;
+    LandWidget landwidget;      //登录界面的实例
+//    MainWidget mainwidget;
 
 private slots:
     void goon();
