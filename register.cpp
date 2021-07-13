@@ -4,7 +4,7 @@
 #include <QtWidgets/QMessageBox>
 #include "chuanshu.h"
 #include<QThread>
-
+//register需要从主界面获取注册好的socket（用于信息传输）
 Register::Register(QWidget *parent) :
     QWidget(parent),
     ui(new Ui::Register)
@@ -53,8 +53,10 @@ Register::~Register()
 
 void Register::on_pushButton_clicked()
 {
+    qDebug()<<"进入注册：";
     if(ui->name->text()!=""&&ui->gender->text()!=""&&ui->email->text()!=""&&ui->pass->text()!=""&&ui->pass_->text()!=""&&ui->userID->text()!=""&&ui->phone->text()!=""&&ui->pass->text()==ui->pass_->text())
     {
+        qDebug()<<"注册成功";
         //信息完整且正确
         QString temp = QString("%1$%2$%3$%4$%5$%6")
                 .arg(ui->userID->text()).arg(ui->name->text()).arg(ui->gender->text())
@@ -88,11 +90,11 @@ void Register::on_pushButton_clicked()
         sender+=QString::number(ss->type)+"#"+(QString)ss->info+"#"+(QString)ss->timer+"#"+(QString)ss->name+"#"+(QString)ss->fileName+"#"+(QString)ss->wantsendto+"#"+QString::number(ss->size)+"#"+(QString)ss->ip;
 
         // 发送
-        char la=0xff;
-        qDebug() <<sender.toUtf8();
-        tcpSocket->write(sender.toUtf8()+la);
-        tcpSocket->flush();
-        qDebug() <<"test send";
+//        char la=0xff;
+//        qDebug() <<sender.toUtf8();
+//        tcpSocket->write(sender.toUtf8()+la);
+//        tcpSocket->flush();
+//        qDebug() <<"test send";
 
 
 //        QThread::sleep(5000);       //进行等待休眠

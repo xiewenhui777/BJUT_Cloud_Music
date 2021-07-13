@@ -320,7 +320,7 @@ void LandWidget::on_login_clicked()
 
     //断开连接
 //    QObject::disconnect(tcpSocket, &QTcpSocket::readyRead, this, &LandWidget::socket_Read_Data);
-    mainwidget->show();
+    mainwidget->show();         //启动主界面
 
     if(mainwidget->doExec() == MainWidget::Rejected){           //代表主界面的退出  因此result的状态会设置为rejected
         this->show();
