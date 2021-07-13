@@ -36,26 +36,8 @@ void MusicList::addMusic(const QList<QUrl> &urls)
             music[music.size()-1].insertSQL(name);
         }
         if(proDialog.wasCanceled()) break;
-        qDebug()<<"add path:"<<i;
     }
 }
-
-//void MusicList::addMusic1(const QUrl url){          //通过一条URL进行添加歌曲
-
-//    //过滤Url的类型
-//    QMimeDatabase db;
-//    QMimeType mime = db.mimeTypeForFile(url.toLocalFile());
-//    if(mime.name()!="audio/mpeg"&&mime.name()!="audio/flac"){
-////        continue;
-//    }
-//    //剩下的符合类型
-//    music.push_back(Music(url));     //通过Music(url)构造一个实体的Music类
-//    if(sql_flag){
-//        music[music.size()-1].insertSQL(name);
-//    }
-
-//    qDebug()<<"add path:"<<url;
-//}
 
 void MusicList::addMusic(const Music &iMusic)
 {

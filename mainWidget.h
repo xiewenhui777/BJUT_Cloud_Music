@@ -50,7 +50,7 @@ private:
     QString userID;         //用户ID
     QTcpSocket *tcpSocket;
     loginDialog login1;
-    QString str;        //用于接收文件后的QString序列（全局）
+    QString str;
 
 //    QEventLoop* m_Loop;
 
@@ -122,7 +122,7 @@ private:
     //更换皮肤的菜单
     QMenu *menu_changeSkin; 
     //搜索结果的右键菜单
-    QMenu *menu_searchlist;
+    QMenu *menu_search;
 
     PersonalDialog *personal;       //跳转个人信息的按钮
 
