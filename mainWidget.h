@@ -121,6 +121,8 @@ private:
     QMenu *menu_musiclist;
     //更换皮肤的菜单
     QMenu *menu_changeSkin; 
+    //搜索结果的右键菜单
+    QMenu *menu_search;
 
     PersonalDialog *personal;       //跳转个人信息的按钮
 
@@ -146,12 +148,14 @@ private slots:
     void local_to_favor();//从本地音乐添加到我喜欢
     void local_to_playlist();//从本地音乐添加到当前播放列表
     void favor_to_playlist();//从我喜欢添加到当前播放列表
+    void local_to_upload(); //上传歌曲
     void namelist_delete();//移除歌单
     void musiclist_removeMusic();//从歌单展示列表移除歌曲
     void musiclist_to_favor();//从当前歌单添加到我喜欢
     void musiclist_to_playlist();//从当前歌单添加到正在播放
     void background_to_default();//换到默认背景
     void background_setting();//自定义背景
+    void download_music();
     
     /*一些点击事件的响应（使用.ui中的部件“转到槽”自动生成）*/
     void on_btnCurMusic_clicked();
@@ -172,6 +176,7 @@ private slots:
     void on_favorMusicWidget_doubleClicked(const QModelIndex &index);
     void on_playListWidget_customContextMenuRequested(const QPoint &pos);
     void on_localMusicWidget_customContextMenuRequested(const QPoint &pos);
+    void on_searchWidget_customContextMenuRequested(const QPoint &pos);
     void on_favorMusicWidget_customContextMenuRequested(const QPoint &pos);
     void on_nameListWidget_customContextMenuRequested(const QPoint &pos);
     void on_nameListWidget_doubleClicked(const QModelIndex &index);

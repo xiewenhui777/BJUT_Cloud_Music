@@ -7,18 +7,7 @@
 class Music
 {
 private:
-    //歌曲资源地址
-    QUrl url;
-    //歌手
-    QString author;
-    //歌曲名
-    QString title;
-    //时长
-    qint64 duration; 
-    //唱片集
-    QString albumTitle;
-    //比特率
-    int audioBitRate;
+
 
     //根据歌曲url获得歌曲信息
     void refreshInfo();
@@ -38,6 +27,19 @@ public:
     void insertSQL(const QString& name);
     //根据文件名来获取歌词路径
     QString getLyricFile();
+
+    //歌曲资源地址
+    QUrl url;
+    //歌手
+    QString author;
+    //歌曲名
+    QString title;
+    //时长
+    qint64 duration;
+    //唱片集
+    QString albumTitle;
+    //比特率
+    int audioBitRate;
     
     friend class MusicList;
 };

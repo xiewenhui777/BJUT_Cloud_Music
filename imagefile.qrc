@@ -89,5 +89,7 @@
         <file>image/image/dianzan.png</file>
         <file>image/image/comment.png</file>
         <file>image/image/login.png</file>
+        <file>image/image/upload.png</file>
+        <file>image/image/download1.png</file>
     </qresource>
 </RCC>

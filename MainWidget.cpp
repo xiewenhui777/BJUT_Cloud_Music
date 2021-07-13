@@ -56,6 +56,7 @@ MainWidget::MainWidget(QWidget *parent) :
     }
     qDebug() << "Connect successfully!";
     QObject::connect(tcpSocket, &QTcpSocket::readyRead, this, &MainWidget::socket_Read_Data);
+
 }
 
 MainWidget::~MainWidget()
@@ -84,6 +85,7 @@ void MainWidget::init_UI()
     ui->playListWidget->verticalScrollBar()->setStyleSheet(ListWidgetStyle());  //设置滚动条
     ui->localMusicWidget->verticalScrollBar()->setStyleSheet(ListWidgetStyle());
     ui->favorMusicWidget->verticalScrollBar()->setStyleSheet(ListWidgetStyle());
+    ui->searchWidget->verticalScrollBar()->setStyleSheet(ListWidgetStyle());
 
     //进行界面初始化时 歌单应该是隐藏起来的 等到点击我的歌单按钮后才显示出来
     ui->nameListWidget->verticalScrollBar()->setStyleSheet(ListWidgetStyle());
@@ -94,6 +96,7 @@ void MainWidget::init_UI()
     ui->localMusicWidget->setIcon(QIcon(":/image/image/image/music-file.png"));
     ui->favorMusicWidget->setIcon(QIcon(":/image/image/image/like.png"));
     ui->musicListWidget->setIcon(QIcon(":/image/image/image/MusicListItem.png"));
+    ui->searchWidget->setIcon(QIcon(":/image/image/image/search.png"));
 
     //点赞按钮的实现
     ui->dianzan->setStyleSheet("QPushButton{image: url(:/image/image/image/dianzan.png);border:none;color:rgb(255, 255, 255);}");
@@ -144,12 +147,15 @@ void MainWidget::init_actions()         //一系列的动作
     connect(action_local_to_favor,&QAction::triggered,this,&MainWidget::local_to_favor);
     QAction *action_local_to_playlist=new QAction(QIcon(":/image/image/image/To-playlist.png"),u8"添加到当前播放列表");
     connect(action_local_to_playlist,&QAction::triggered,this,&MainWidget::local_to_playlist);
+    QAction *action_local_to_upload=new QAction(QIcon(":/image/image/image/upload.png"),u8"上传歌曲");
+    connect(action_local_to_upload,&QAction::triggered,this,&MainWidget::local_to_upload);
     menu_locallist=new QMenu(this);
     menu_locallist->addAction(action_locallist_delete);
     menu_locallist->addAction(action_locallist_showfile);
     menu_locallist->addAction(action_locallist_detail);
     menu_locallist->addAction(action_local_to_favor);
     menu_locallist->addAction(action_local_to_playlist);
+    menu_locallist->addAction(action_local_to_upload);
     
     //“我喜欢”列表右键菜单初始化
     ui->favorMusicWidget->setContextMenuPolicy(Qt::CustomContextMenu);
@@ -192,6 +198,13 @@ void MainWidget::init_actions()         //一系列的动作
     menu_musiclist->addAction(action_musiclist_detail);
     menu_musiclist->addAction(action_musiclist_to_favor);
     menu_musiclist->addAction(action_musiclist_to_playlist);
+
+    //搜索结果界面初始化
+    ui->searchWidget->setContextMenuPolicy(Qt::CustomContextMenu);
+    QAction *action_search_result=new QAction(QIcon(":/image/image/image/download1.png"),u8"下载");
+    connect(action_search_result,&QAction::triggered,this,&MainWidget::download_music);
+    menu_namelist=new QMenu(this);
+    menu_namelist->addAction(action_search_result);
 
     //“换肤”的菜单项
     QAction *action_backgroud_to_default = new QAction(QIcon(":/image/image/image/default.png"),u8"更换到默认背景");
@@ -397,6 +410,71 @@ void MainWidget::local_to_playlist()
     playlist->addMedia(tempMusic.getUrl());
 }
 
+void MainWidget::local_to_upload(){
+    int pos=ui->localMusicWidget->currentRow();     //获取当前位置
+    Music tempmusic=ui->localMusicWidget->musicList.getMusic(pos);
+
+
+    //进行文件传送
+    qDebug()<<"upload1";
+    QStringList arguments;//用于传参数
+    QString program = "‪D:\\Transfer\\send.exe"; //外部程序地址
+    arguments <<"10.24.10.40"<<"8888";
+    qDebug()<<"upload2";
+    QProcess process(this);
+    process.startDetached(program, arguments);//启动程序
+
+    chuanshu *start=new chuanshu("0######0#");         //在准备登录时发送一个预告 告诉服务器准备登录了
+    QString tempID="2";
+    QString singerID="22";
+
+    //替换掉#防止冲突
+    QString originText = tempmusic.albumTitle;
+    QString searchText = "#";
+    QString replaceText = "";
+    QString result = originText.replace(QRegExp(searchText), replaceText);
+
+    QString s1="";
+    s1+=tempmusic.title;
+    s1+="$";
+    s1+=tempmusic.author+"$";
+    s1+="$";
+    s1+=tempID+"$";
+    s1+="type$";
+    s1+=result+"$";         //唱片名称拼接
+    s1+=singerID+"$";
+    s1+=tempmusic.getUrl().toString();
+
+    qDebug()<<"upload data:"<<s1;
+
+    start->type = 2;
+    start->info = s1;
+    start->timer = "";
+    start->name = userID;
+    start->fileName = tempmusic.title;
+    start->wantsendto = "";
+    start->size = 0;
+    start->ip = "10.24.10.40";
+
+    QString sender="";
+    sender+=QString::number(start->type)+"#"+(QString)start->info+"#"+(QString)start->timer+"#"+(QString)start->name+"#"+(QString)start->fileName+"#"+(QString)start->wantsendto+"#"+QString::number(start->size)+"#"+(QString)start->ip;
+
+//  执行上传数据包
+    char la=0xff;
+    qDebug() <<sender.toUtf8();
+    tcpSocket->write(sender.toUtf8()+la);
+    tcpSocket->flush();
+    qDebug() <<"upload over";
+
+
+    process.close();
+    qDebug()<<"upload3";
+
+//    ui->favorMusicWidget->musicList.addMusic(ui->localMusicWidget->musicList.getMusic(pos));
+
+    QMessageBox::information(this,QStringLiteral("上传"),QStringLiteral("上传成功"));
+}
+
 void MainWidget::favor_to_playlist()
 {
     int pos=ui->favorMusicWidget->currentRow();
@@ -424,6 +502,10 @@ void MainWidget::namelist_delete()      //歌单列表中，某个歌曲的删�
         i++;
     }
     namelist_refresh();
+}
+
+void MainWidget::download_music(){      //在此处实现音乐的下载功能
+
 }
 
 void MainWidget::musiclist_removeMusic()        //某一歌单中的歌曲进行移除
@@ -506,6 +588,15 @@ void MainWidget::on_nameListWidget_customContextMenuRequested(const QPoint &pos)
         return;
     }
     menu_namelist->exec(QCursor::pos());
+}
+
+void MainWidget::on_searchWidget_customContextMenuRequested(const QPoint &pos)
+{
+    if(ui->searchWidget->itemAt(pos)==Q_NULLPTR)
+    {
+        return;
+    }
+    menu_search->exec(QCursor::pos());
 }
 
 
@@ -1073,6 +1164,7 @@ void MainWidget::on_musicsraech_clicked(){
 //    dialog1.show();         //展示搜索框
 //    dialog1.exec();            //搜索框退出
     //this->show();
+    ui->stackedWidget->setCurrentIndex(4);
 
     QString strText = ui->SearchlineEdit->text();
     //若在数据库中搜寻到某个歌曲 则显将结果显示在搜索弹框中
@@ -1101,6 +1193,10 @@ void MainWidget::on_musicsraech_clicked(){
 
         QMessageBox::information(this, QStringLiteral("搜索"), QStringLiteral("搜索内容为%1").arg(strText));
     }
+
+
+
+    //在此处调用widget添加搜索歌曲
 }
 
 void MainWidget::on_btnMusiclist_clicked(){
