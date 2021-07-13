@@ -341,7 +341,7 @@ void MainWidget::init_settings()        //一些初始的系统设置
     }
 }
 
-void MainWidget::musicListWidget_refresh()//当前播放列表刷新
+void MainWidget::musicListWidget_refresh()//歌单列表刷新
 {
     if(musiclist_index != -1){
         ui->musicListNameLabel->setText(u8"歌单 - "+musiclist[musiclist_index].getName());
@@ -977,7 +977,7 @@ void MainWidget::on_btnSkin_clicked()
     menu_changeSkin->exec(QCursor::pos());
 }
 
-void MainWidget::on_btnAddtoMusicList_clicked()
+void MainWidget::on_btnAddtoMusicList_clicked()         //添加本地中的歌曲到自己的歌单中
 {
     MusicListDialog *dialog=new MusicListDialog(this);
     int num=ui->localMusicWidget->count();
@@ -989,7 +989,7 @@ void MainWidget::on_btnAddtoMusicList_clicked()
                 musiclist[musiclist_index].addMusic(ui->localMusicWidget->musicList.getMusic(i));
             }
         }
-        musicListWidget_refresh();
+        musicListWidget_refresh();      //在此处进行更新显示
     }
     delete []results;
 }
@@ -1164,7 +1164,20 @@ void MainWidget::on_musicsraech_clicked(){
 //    dialog1.show();         //展示搜索框
 //    dialog1.exec();            //搜索框退出
     //this->show();
-    ui->stackedWidget->setCurrentIndex(4);
+    ui->stackedWidget->setCurrentIndex(4);          //设置widget在第4个page
+
+
+    //首先建立一个music类
+    Music testMusic;
+    testMusic.url="abcd";
+    testMusic.title="for test";
+    testMusic.author="xwh";
+    testMusic.duration=120;
+    testMusic.albumTitle="test case";
+    testMusic.audioBitRate=32000;
+    ui->searchWidget->musicList.addMusic(testMusic);        //添加歌曲
+//    ui->searchWidget->musicList.addMusic(musiclist[musiclist_index].getMusic(pos));
+    ui->searchWidget->refresh();
 
     QString strText = ui->SearchlineEdit->text();
     //若在数据库中搜寻到某个歌曲 则显将结果显示在搜索弹框中
