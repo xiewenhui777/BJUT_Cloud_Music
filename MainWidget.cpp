@@ -203,8 +203,8 @@ void MainWidget::init_actions()         //一系列的动作
     ui->searchWidget->setContextMenuPolicy(Qt::CustomContextMenu);
     QAction *action_search_result=new QAction(QIcon(":/image/image/image/download1.png"),u8"下载");
     connect(action_search_result,&QAction::triggered,this,&MainWidget::download_music);
-    menu_namelist=new QMenu(this);
-    menu_namelist->addAction(action_search_result);
+    menu_searchlist=new QMenu(this);
+    menu_searchlist->addAction(action_search_result);
 
     //“换肤”的菜单项
     QAction *action_backgroud_to_default = new QAction(QIcon(":/image/image/image/default.png"),u8"更换到默认背景");
@@ -505,7 +505,7 @@ void MainWidget::namelist_delete()      //歌单列表中，某个歌曲的删�
 }
 
 void MainWidget::download_music(){      //在此处实现音乐的下载功能
-
+    QMessageBox::information(this, QStringLiteral("下载"), QStringLiteral("下载成功"));
 }
 
 void MainWidget::musiclist_removeMusic()        //某一歌单中的歌曲进行移除
@@ -596,7 +596,7 @@ void MainWidget::on_searchWidget_customContextMenuRequested(const QPoint &pos)
     {
         return;
     }
-    menu_search->exec(QCursor::pos());
+    menu_searchlist->exec(QCursor::pos());
 }
 
 
