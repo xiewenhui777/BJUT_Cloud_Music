@@ -505,27 +505,6 @@ void MainWidget::namelist_delete()      //歌单列表中，某个歌曲的删�
 }
 
 void MainWidget::download_music(){      //在此处实现音乐的下载功能
-    chuanshu *ss=new chuanshu("0######0#");
-    ss->type = 3;
-    ss->info = ui->SearchlineEdit->text();
-    ss->timer = "";
-    ss->name = userID;
-    ss->fileName = "斯卡布罗集市";
-    ss->wantsendto = "";
-    ss->size = 0;
-    ss->ip = "";
-
-    QString sender="";
-    sender+=QString::number(ss->type)+"#"+(QString)ss->info+"#"+(QString)ss->timer+"#"+(QString)ss->name+"#"+(QString)ss->fileName+"#"+(QString)ss->wantsendto+"#"+QString::number(ss->size)+"#"+(QString)ss->ip;
-
-//        // 发送
-    char la=0xff;
-    qDebug() <<sender.toUtf8();
-    tcpSocket->write(sender.toUtf8()+la);
-    tcpSocket->flush();
-
-
-
     QMessageBox::information(this, QStringLiteral("下载"), QStringLiteral("下载成功"));
 }
 

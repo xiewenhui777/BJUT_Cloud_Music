@@ -16,8 +16,8 @@
   <widget class="MusicListWidget" name="searchWidget">
    <property name="geometry">
     <rect>
-     <x>10</x>
-     <y>40</y>
+     <x>70</x>
+     <y>60</y>
      <width>831</width>
      <height>491</height>
     </rect>
