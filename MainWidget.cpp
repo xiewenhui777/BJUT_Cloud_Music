@@ -1282,6 +1282,7 @@ void MainWidget::on_commment_clicked(){
 }
 
 void MainWidget::on_login_clicked(){
+    qDebug()<<"真正登录";
     login1.show();
     login1.exec();
 }

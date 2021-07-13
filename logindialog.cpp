@@ -16,6 +16,7 @@ loginDialog::loginDialog(QWidget *parent) :
     ui->setupUi(this);
     setWindowFlags(windowFlags()&~Qt::WindowMaximizeButtonHint);    // 禁止最大化按钮               // 禁止拖动窗口大小
     setWindowTitle(QStringLiteral("登录"));    //设置窗口标题
+    connect(ui->forgetpassword,SIGNAL(clicked()), this,SLOT(findPasswod_clicked()));
 
 }
 
@@ -211,6 +212,7 @@ void loginDialog::on_registeButton_clicked()
 
 void loginDialog::findPasswod_clicked()        //找回密码的按钮
 {
+    qDebug()<<"找回密码";
     forget1.show();
     forget1.exec();
 }

@@ -83,101 +83,9 @@ LandWidget::~LandWidget()
     delete ui;
 }
 
-bool LandWidget::judgement(QByteArray array)
-{
-    //判断服务器返回的消息是否是信息匹配，如果是返回true否则返回false
-    //服务器返回消息格式
-    /*
-     * {
-    "PacketType": "land_success"
-    }
-     */
-    //解包
-    /*
-     * 测试用例
-     * */
-    QString temp = array;
-
-    QStringList sstr=temp.split("#");
-    chuanshu *s=new chuanshu("0######0#");
-    s->type = sstr[0].toInt();
-    s->info = sstr[1];
-    s->timer = sstr[2];
-    s->name = sstr[3];
-    s->fileName = sstr[4];
-    s->wantsendto = sstr[5];
-    s->size = sstr[6].toInt();
-    s->ip = sstr[7];
-
-    qDebug()<<s->info;
-
-//    switch(s->type){
-//    case 0: {
-
-//        break;
-//    }
-//        case 1:break;
-//        case 2:break;
-//        case 3:break;
-//        case 4:break;
-//        case 5:break;
-//        case 6:break;
-//        case 7:break;
-//        case 8:break;
-//        case 9:break;
-//        case 10:break;
-//        default:break;
-//      }
 
 
 
-    QString type = NULL;
-    QString user = NULL;
-    int i=0;
-    for(i=0;i<temp.size();i++)
-    {
-        if(temp[i] == ' ')
-        {
-            i++;
-            break;
-        }
-        type[i] = temp[i];
-    }
-
-    if(type == "success")
-    {
-        for(int j=0;i<temp.size();i++,j++)
-        {
-            if(temp[i]==' ')
-            {
-                break;
-            }
-            user[j] = temp[i];
-        }
-        user_active = user.toInt();
-        return true;
-    }else if(type == "register_su"){
-
-        regi->regiSucce(temp);
-    }
-    else{
-        QMessageBox::warning(this,QStringLiteral("错误"),QStringLiteral("账号或密码错误"));
-    }
-    return false;
-}
-
-//void LandWidget::slotDataRecv()
-//{
-//    //收到服务器消息时
-//    if(judgement(tcpSocket->readAll()))//读取服务器消息并判断
-//    {
-//        //服务器返回登陆信息正确
-//        emit landSuccess(); //给主窗口发送登陆成功信号
-//    }
-//    else{
-
-//    }
-//}
 void LandWidget::on_login_clicked()
 {
 
@@ -329,49 +237,44 @@ void LandWidget::on_login_clicked()
     }
 
 }
-QString LandWidget::landPack(int id, QString password)
-{
-    QString temp = QString("%1 %2 %3 ").arg("login").arg(id).arg(password);
-    return temp;
-}
 
-void LandWidget::on_registeButton_clicked()
-{
-    //点击注册按钮
-//    QObject::disconnect(tcpSocket, &QTcpSocket::readyRead, this, &LandWidget::socket_Read_Data);
-//    qDebug()<<"in regi";
-    regi = new Register();
-    regi->state=0;
-    regi->setSocket(this->tcpSocket);
-    regi->show();
+//void LandWidget::on_registeButton_clicked()
+//{
+//    //点击注册按钮
+////    QObject::disconnect(tcpSocket, &QTcpSocket::readyRead, this, &LandWidget::socket_Read_Data);
+////    qDebug()<<"in regi";
+//    regi = new Register();
+//    regi->state=0;
+//    regi->setSocket(this->tcpSocket);
+//    regi->show();
 
-//    if(regi->doExec() == Register::Rejected){           //代表主界面的退出  因此result的状态会设置为rejected
-////        this->show();
-//        QObject::connect(tcpSocket, &QTcpSocket::readyRead, this, &LandWidget::socket_Read_Data);   //登录界面重新连接tcpSocket槽函数
-//        qDebug()<<"quit Register page"<<endl;
+////    if(regi->doExec() == Register::Rejected){           //代表主界面的退出  因此result的状态会设置为rejected
+//////        this->show();
+////        QObject::connect(tcpSocket, &QTcpSocket::readyRead, this, &LandWidget::socket_Read_Data);   //登录界面重新连接tcpSocket槽函数
+////        qDebug()<<"quit Register page"<<endl;
 
-//    }
+////    }
 
-//    MainWidget *test=new MainWidget;
-//    test->doExec();
+////    MainWidget *test=new MainWidget;
+////    test->doExec();
 
-//    regi->doExec();
+////    regi->doExec();
 
 
-//     mainwidget = new MainWidget;
-//     mainwidget->show();
-//     mainwidget->doExec();
+////     mainwidget = new MainWidget;
+////     mainwidget->show();
+////     mainwidget->doExec();
 
 
-//    qDebug()<<"exit1";
-//    QObject::connect(tcpSocket, &QTcpSocket::readyRead, this, &LandWidget::socket_Read_Data);
-}
+////    qDebug()<<"exit1";
+////    QObject::connect(tcpSocket, &QTcpSocket::readyRead, this, &LandWidget::socket_Read_Data);
+//}
 
-void LandWidget::findPasswod_clicked()        //找回密码的按钮
-{
-    forget1.show();
-    forget1.exec();
-}
+//void LandWidget::findPasswod_clicked()        //找回密码的按钮
+//{
+//    forget1.show();
+//    forget1.exec();
+//}
 
 //void LandWidget::socket_Read_Data()
 //{
