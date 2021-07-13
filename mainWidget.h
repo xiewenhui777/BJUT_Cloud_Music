@@ -54,7 +54,7 @@ private:
 //    loginDialog login1;
     testDialog test;
     registerDialog register1;       //注册界面
-    QString str;
+    QString str;            //全局的收到数据包的QString类型
 
 //    QEventLoop* m_Loop;
 
