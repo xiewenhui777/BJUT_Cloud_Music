@@ -18,11 +18,11 @@ class testDialog : public QDialog
 public:
     explicit testDialog(QWidget *parent = nullptr);
     ~testDialog();
-    int *stateflag;
-    void setSocket(QTcpSocket *soc,int *flag)
+//    int *stateflag;
+    void setSocket(QTcpSocket *soc)
     {
         tcpSocket = soc;
-        stateflag=flag;
+//        stateflag=flag;
     }
 
 private:
@@ -36,6 +36,7 @@ private slots:
     void on_login_clicked();
     void on_registeButton_clicked();
     void findPasswod_clicked();
+//    void socket_Read_Data();
 };
 
 #endif // TESTDIALOG_H

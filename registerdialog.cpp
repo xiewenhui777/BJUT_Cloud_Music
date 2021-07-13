@@ -1,21 +1,21 @@
-﻿#include "register.h"
-#include "ui_register.h"
+#include "registerdialog.h"
+#include "ui_registerdialog.h"
 #include <QDialog>
 #include <QtWidgets/QMessageBox>
 #include "chuanshu.h"
 #include<QThread>
 //register需要从主界面获取注册好的socket（用于信息传输）
-Register::Register(QWidget *parent) :
-    QWidget(parent),
-    ui(new Ui::Register)
-{
 
+registerDialog::registerDialog(QWidget *parent) :
+    QDialog(parent),
+    ui(new Ui::registerDialog)
+{
+    ui->setupUi(this);
     ui->setupUi(this);
     setWindowTitle(QStringLiteral("注册"));
     ui->pass->setEchoMode(QLineEdit::Password); //设置密码编辑框为隐藏模式
     ui->pass_->setEchoMode(QLineEdit::Password); //设置密码编辑框为隐藏模式
     setWindowFlags(windowFlags()&~Qt::WindowMaximizeButtonHint);    // 禁止最大化按钮
-//    setFixedSize(441,507);                     // 禁止拖动窗口大小
     icon = "00";
     icoDia = new QDialog(this);
     layout_fri = new QVBoxLayout(icoDia);
@@ -40,18 +40,19 @@ Register::Register(QWidget *parent) :
                     icon[1] = path[8];
                 }
                 );
-
     }
+    connect(ui->pushButton,SIGNAL(clicked()), this,SLOT(on_pushButton_clicked()));
 
-//    QObject::connect(tcpSocket, &QTcpSocket::readyRead, this, &Register::socket_Read_Data);
 }
 
-Register::~Register()
+registerDialog::~registerDialog()
 {
     delete ui;
 }
 
-void Register::on_pushButton_clicked()
+
+
+void registerDialog::on_pushButton_clicked()
 {
     qDebug()<<"进入注册：";
     if(ui->name->text()!=""&&ui->gender->text()!=""&&ui->email->text()!=""&&ui->pass->text()!=""&&ui->pass_->text()!=""&&ui->userID->text()!=""&&ui->phone->text()!=""&&ui->pass->text()==ui->pass_->text())
@@ -110,19 +111,15 @@ void Register::on_pushButton_clicked()
 //            qDebug()<<"rec:"<<str;
 //        }
 
-
-
-
-
         QMessageBox::information(this, QStringLiteral("注册"), QStringLiteral("注册成功"));//显示注册成功信息的弹窗
     }else QMessageBox::information(this, QStringLiteral("注册"), QStringLiteral("注册失败"));
 
 }
 
-void Register::closeEvent(QCloseEvent *event){
+void registerDialog::closeEvent(QCloseEvent *event){
     state=1;
 }
-void Register::regiSucce(QString info)
+void registerDialog::regiSucce(QString info)
 {
     //
     int i;
@@ -144,13 +141,13 @@ void Register::regiSucce(QString info)
     QMessageBox::warning(this,QStringLiteral("id分配"),temp);
     this->hide();
 }
-void Register::on_headimage_clicked()
+void registerDialog::on_headimage_clicked()
 {
     icoDia->show();
 }
 
 
-void Register::socket_Read_Data()
+void registerDialog::socket_Read_Data()
 {
     qDebug()<<"register";
     QByteArray buffer;
@@ -167,11 +164,12 @@ void Register::socket_Read_Data()
     }
 }
 
-//int Register::doExec()
+//int registerDialog::doExec()
 //{
 //    this->result = Rejected;
 //    loop = new QEventLoop();
 //    loop->exec();
 //    return result;
 //}
+
 

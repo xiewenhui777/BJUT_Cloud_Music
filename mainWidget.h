@@ -14,7 +14,8 @@
 #include "PersonalDialog.h"
 #include "comment.h"
 //#include "logindialog.h"
-#include "testdialog.h"
+#include "testdialog.h"     //登录界面
+#include "registerdialog.h"     //注册界面
 
 
 #include<qeventloop.h>
@@ -52,6 +53,7 @@ private:
     QTcpSocket *tcpSocket;
 //    loginDialog login1;
     testDialog test;
+    registerDialog register1;       //注册界面
     QString str;
 
 //    QEventLoop* m_Loop;
@@ -214,6 +216,7 @@ private slots:
 //    void on_login_clicked1();
     void socket_Read_Data();
     void testlogin();
+    void on_register_clicked();
 
 
 

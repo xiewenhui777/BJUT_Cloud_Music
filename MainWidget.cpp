@@ -219,7 +219,7 @@ void MainWidget::init_actions()         //一系列的动作
     connect(ui->comment,SIGNAL(clicked()), this,SLOT(on_commment_clicked()));
 //    connect(ui->login,SIGNAL(clicked()), this,SLOT(on_login_clicked1()));
     connect(ui->login,SIGNAL(clicked()), this,SLOT(testlogin()));
-    qDebug()<<"login test";
+    connect(ui->register_btn,SIGNAL(clicked()), this,SLOT(on_register_clicked()));
 //    connect(ui->btnPersonal,SIGNAL(clicked()), this,SLOT(on_btnPersonal_clicked()));
 
 }
@@ -1289,18 +1289,17 @@ void MainWidget::on_commment_clicked(){
 
 //}
 void MainWidget::testlogin(){
-    int stateflag=0;        //登录状态判断
+//    int stateflag=0;        //登录状态判断
     test.show();
-    test.setSocket(tcpSocket,&stateflag);      //传输套接字
+    test.setSocket(tcpSocket);      //传输套接字
     test.exec();
-
-    qDebug()<<"state:"<<stateflag;
-    if(stateflag)   ui->loginlabel->setText("已登录");
+//    qDebug()<<"state:"<<stateflag;
+//    if(stateflag)   ui->loginlabel->setText("已登录");
 }
 
 void MainWidget::socket_Read_Data()
 {
-    qDebug()<<"mainwidget";
+    qDebug()<<"mainwidget:";
     QByteArray buffer;
     //读取缓冲区数据
     buffer = tcpSocket->readAll();
@@ -1309,15 +1308,13 @@ void MainWidget::socket_Read_Data()
     {
         str=QString::fromLocal8Bit(buffer.data());//将收到的utf-8格式转换回String
         qDebug()<<"rec:"<<str;
-//        ui->id->clear();
-//        ui->id->setText(str);
     }
 
     QStringList sstr=str.split("#");
     qDebug()<<"type:"<<sstr[0].toInt();
 
 
-    if(sstr[0].toInt()==3){        //判断回传包的类型
+    if(sstr[0].toInt()==3){        //判断下载时回传包的类型
         qDebug()<<"s1";
         QStringList arguments;//用于传参数
         QString program = "D:\\Transfer\\receive.exe"; //外部程序地址
@@ -1327,6 +1324,15 @@ void MainWidget::socket_Read_Data()
         process.startDetached(program, arguments);//启动程序
         process.close();
         qDebug()<<"s3";
+    }else if(sstr[0].toInt()==15){  //登录完成时的状态
+        ui->loginlabel->setText("已登录");
+        QMessageBox::information(this, QStringLiteral("登录"), QStringLiteral("登录成功"));//显示登录成功信息的弹窗
     }
+}
+
+void MainWidget::on_register_clicked(){     //注册按键实现
+    register1.show();
+    register1.setSocket(tcpSocket);             //设置套接字
+    register1.exec();
 }
 

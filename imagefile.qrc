@@ -96,5 +96,6 @@
         <file>image/background/bk.jpg</file>
         <file>image/image/chat.png</file>
         <file>image/image/ziliao.png</file>
+        <file>image/image/register.png</file>
     </qresource>
 </RCC>

@@ -18,6 +18,7 @@ testDialog::testDialog(QWidget *parent) :
     setWindowFlags(windowFlags()&~Qt::WindowMaximizeButtonHint);    // 禁止最大化按钮               // 禁止拖动窗口大小
     setWindowTitle(QStringLiteral("登录"));    //设置窗口标题
     connect(ui->forgetpassword,SIGNAL(clicked()), this,SLOT(findPasswod_clicked()));
+//    QObject::connect(tcpSocket, &QTcpSocket::readyRead, this, &testDialog::socket_Read_Data);
 }
 
 testDialog::~testDialog()
@@ -157,11 +158,11 @@ void testDialog::on_login_clicked()
     sender1+=QString::number(start->type)+"#"+(QString)start->info+"#"+(QString)start->timer+"#"+(QString)start->name+"#"+(QString)start->fileName+"#"+(QString)start->wantsendto+"#"+QString::number(start->size)+"#"+(QString)start->ip;
 
 //     发送
-//    char la=0xff;
-//    qDebug() <<sender1.toUtf8();
-//    tcpSocket->write(sender1.toUtf8()+la);
-//    tcpSocket->flush();
-//    qDebug() <<"send over";
+    char la=0xff;
+    qDebug() <<sender1.toUtf8();
+    tcpSocket->write(sender1.toUtf8()+la);
+    tcpSocket->flush();
+    qDebug() <<"send over";
 
 
     //断开连接
@@ -174,7 +175,7 @@ void testDialog::on_login_clicked()
 
 //    }
     //若登陆成功 登录状态置1
-    *stateflag=1;
+//    *stateflag=1;
     exec();     //登录进程结束
     close();
 
@@ -186,10 +187,10 @@ void testDialog::on_registeButton_clicked()
     //点击注册按钮
 //    QObject::disconnect(tcpSocket, &QTcpSocket::readyRead, this, &testDialog::socket_Read_Data);
 //    qDebug()<<"in regi";
-    regi = new Register();
-    regi->state=0;
-    regi->setSocket(this->tcpSocket);       //设置套接字
-    regi->show();
+//    regi = new Register();
+//    regi->state=0;
+//    regi->setSocket(this->tcpSocket);       //设置套接字
+//    regi->show();
 
 //    if(regi->doExec() == Register::Rejected){           //代表主界面的退出  因此result的状态会设置为rejected
 ////        this->show();
@@ -238,17 +239,5 @@ void testDialog::findPasswod_clicked()        //找回密码的按钮
 //    QStringList sstr=str.split("#");
 //    qDebug()<<"type:"<<sstr[0].toInt();
 
-
-//    if(sstr[0].toInt()==3){        //判断回传包的类型
-//        qDebug()<<"s1";
-//        QStringList arguments;//用于传参数
-//        QString program = "D:\\Transfer\\receive.exe"; //外部程序地址
-//        arguments <<"10.24.10.40"<<"8888";
-//        qDebug()<<"s2";
-//        QProcess process(this);
-//        process.startDetached(program, arguments);//启动程序
-//        process.close();
-//        qDebug()<<"s3";
-//    }
 //}
 
