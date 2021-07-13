@@ -218,7 +218,8 @@ void MainWidget::init_actions()         //一系列的动作
     //歌曲搜索按钮的实现
     connect(ui->MusicSearch,SIGNAL(clicked()), this,SLOT(on_musicsraech_clicked()));
     connect(ui->comment,SIGNAL(clicked()), this,SLOT(on_commment_clicked()));
-    connect(ui->login,SIGNAL(clicked()), this,SLOT(on_login_clicked()));
+//    connect(ui->login,SIGNAL(clicked()), this,SLOT(on_login_clicked1()));
+    connect(ui->login,SIGNAL(clicked()), this,SLOT(testlogin()));
     qDebug()<<"login test";
 //    connect(ui->btnPersonal,SIGNAL(clicked()), this,SLOT(on_btnPersonal_clicked()));
 
@@ -1282,10 +1283,15 @@ void MainWidget::on_commment_clicked(){
     commentDialog.exec();           //评论界面退出
 }
 
-void MainWidget::on_login_clicked(){
-    qDebug()<<"真正登录";
-    login1.show();
-    login1.exec();
+//void MainWidget::on_login_clicked1(){
+//    qDebug()<<"真正登录";
+//    login1.show();
+//    login1.exec();
+
+//}
+void MainWidget::testlogin(){
+    test.show();
+    test.exec();
 }
 
 void MainWidget::socket_Read_Data()

@@ -2592,10 +2592,20 @@ color:rgb(255, 255, 255);
     <bool>true</bool>
    </property>
   </widget>
+  <widget class="QLineEdit" name="SearchlineEdit">
+   <property name="geometry">
+    <rect>
+     <x>780</x>
+     <y>20</y>
+     <width>131</width>
+     <height>21</height>
+    </rect>
+   </property>
+  </widget>
   <widget class="QPushButton" name="login">
    <property name="geometry">
     <rect>
-     <x>470</x>
+     <x>700</x>
      <y>10</y>
      <width>35</width>
      <height>35</height>
@@ -2611,7 +2621,7 @@ color:rgb(255, 255, 255);
     <cursorShape>PointingHandCursor</cursorShape>
    </property>
    <property name="toolTip">
-    <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;登录注册&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+    <string>关于</string>
    </property>
    <property name="styleSheet">
     <string notr="true"/>
@@ -2631,16 +2641,6 @@ color:rgb(255, 255, 255);
    </property>
    <property name="flat">
     <bool>true</bool>
-   </property>
-  </widget>
-  <widget class="QLineEdit" name="SearchlineEdit">
-   <property name="geometry">
-    <rect>
-     <x>780</x>
-     <y>20</y>
-     <width>131</width>
-     <height>21</height>
-    </rect>
    </property>
   </widget>
  </widget>

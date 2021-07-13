@@ -13,7 +13,8 @@
 #include "MusicSearchDialog.h"      //搜索框的头文件需要加进来
 #include "PersonalDialog.h"
 #include "comment.h"
-#include "logindialog.h"
+//#include "logindialog.h"
+#include "testdialog.h"
 
 
 #include<qeventloop.h>
@@ -49,7 +50,8 @@ private:
     comment commentDialog;      //评论的对话框
     QString userID;         //用户ID
     QTcpSocket *tcpSocket;
-    loginDialog login1;
+//    loginDialog login1;
+    testDialog test;
     QString str;
 
 //    QEventLoop* m_Loop;
@@ -209,8 +211,9 @@ private slots:
     void on_btnPersonal_clicked();          //个人信息界面
     void on_dianzan_clicked();
     void on_commment_clicked();
-    void on_login_clicked();
+//    void on_login_clicked1();
     void socket_Read_Data();
+    void testlogin();
 
 
 
