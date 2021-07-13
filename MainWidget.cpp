@@ -219,6 +219,7 @@ void MainWidget::init_actions()         //一系列的动作
     connect(ui->MusicSearch,SIGNAL(clicked()), this,SLOT(on_musicsraech_clicked()));
     connect(ui->comment,SIGNAL(clicked()), this,SLOT(on_commment_clicked()));
     connect(ui->login,SIGNAL(clicked()), this,SLOT(on_login_clicked()));
+    qDebug()<<"login test";
 //    connect(ui->btnPersonal,SIGNAL(clicked()), this,SLOT(on_btnPersonal_clicked()));
 
 }

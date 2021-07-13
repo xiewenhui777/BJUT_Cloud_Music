@@ -175,6 +175,9 @@ void loginDialog::on_login_clicked()
 
 //    }
 
+    exec();     //登录进程结束
+    close();
+
 }
 
 
