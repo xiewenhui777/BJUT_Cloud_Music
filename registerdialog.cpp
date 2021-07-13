@@ -76,7 +76,7 @@ void registerDialog::on_pushButton_clicked()
         s+=ui->email->text()+"$";
         s+="";
 
-        qDebug()<<"s:"<<s;
+        qDebug()<<"register info:"<<s;
 
         ss->type = 16;
         ss->info = s;
@@ -97,21 +97,7 @@ void registerDialog::on_pushButton_clicked()
         tcpSocket->flush();
         qDebug() <<"test send";
 
-
-//        QThread::sleep(5000);       //进行等待休眠
-
-//        QByteArray buffer;
-//        //读取缓冲区数据
-//        buffer = tcpSocket->readAll();
-//        if(!buffer.isEmpty())
-//        {
-//            QString str;
-//            //将收到的utf-8格式转换回String
-//            str=QString::fromLocal8Bit(buffer.data());
-//            qDebug()<<"rec:"<<str;
-//        }
-
-        QMessageBox::information(this, QStringLiteral("注册"), QStringLiteral("注册成功"));//显示注册成功信息的弹窗
+//        QMessageBox::information(this, QStringLiteral("注册"), QStringLiteral("注册成功"));//显示注册成功信息的弹窗
     }else QMessageBox::information(this, QStringLiteral("注册"), QStringLiteral("注册失败"));
 
 }
@@ -159,17 +145,7 @@ void registerDialog::socket_Read_Data()
         QString str;
         str=QString::fromLocal8Bit(buffer.data());//将收到的utf-8格式转换回String
         qDebug()<<"rec:"<<str;
-//        ui->id->clear();
-//        ui->id->setText(str);
     }
 }
-
-//int registerDialog::doExec()
-//{
-//    this->result = Rejected;
-//    loop = new QEventLoop();
-//    loop->exec();
-//    return result;
-//}
 
 

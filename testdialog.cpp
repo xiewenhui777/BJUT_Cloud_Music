@@ -113,7 +113,7 @@ void testDialog::on_login_clicked()
     s+="0$";
     s+="0";
 
-    qDebug()<<"s:"<<s;
+    qDebug()<<"login info1:"<<s;
 
     ss->type = 15;
     ss->info = s;
@@ -135,11 +135,6 @@ void testDialog::on_login_clicked()
     qDebug() <<"send over";
 
 
-//    extern int quit_login;
-//    quit_login=0;           //退出状态重置
-//    this->hide();           //登录界面隐藏起来
-//    mainwidget = new MainWidget;
-
 
     chuanshu *start=new chuanshu("0######0#");         //先建立一个发送类
     QString s1="";
@@ -151,7 +146,7 @@ void testDialog::on_login_clicked()
     s1+="$";
     s1+="";
 
-    qDebug()<<"s1:"<<s1;
+    qDebug()<<"login info2:"<<s1;
 
     start->type = 0;
     start->info = s1;

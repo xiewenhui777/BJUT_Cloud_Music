@@ -1325,9 +1325,13 @@ void MainWidget::socket_Read_Data()
         process.close();
         qDebug()<<"s3";
     }else if(sstr[0].toInt()==15){  //登录完成时的状态
-        if(sstr[1].toInt()==0){
+        if(sstr[1].toInt()==0){ //当登录完成的回包的第二个字段为0时 代表能正常接受
             ui->loginlabel->setText("已登录");
             QMessageBox::information(this, QStringLiteral("登录"), QStringLiteral("登录成功"));//显示登录成功信息的弹窗
+        }
+    }else if(sstr[0].toInt()==16){  //登录完成时的状态
+        if(sstr[1].toInt()==0){
+            QMessageBox::information(this, QStringLiteral("注册"), QStringLiteral("注册成功"));//显示登录成功信息的弹窗
         }
     }
 }
