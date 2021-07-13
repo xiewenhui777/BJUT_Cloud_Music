@@ -91,5 +91,6 @@
         <file>image/image/login.png</file>
         <file>image/image/upload.png</file>
         <file>image/image/download1.png</file>
+        <file>image/image/friend.png</file>
     </qresource>
 </RCC>

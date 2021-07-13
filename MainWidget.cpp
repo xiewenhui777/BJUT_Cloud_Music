@@ -56,7 +56,6 @@ MainWidget::MainWidget(QWidget *parent) :
     }
     qDebug() << "Connect successfully!";
     QObject::connect(tcpSocket, &QTcpSocket::readyRead, this, &MainWidget::socket_Read_Data);
-
 }
 
 MainWidget::~MainWidget()

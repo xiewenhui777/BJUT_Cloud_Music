@@ -2,6 +2,9 @@
 #define FRIENDDIALOG_H
 
 #include <QDialog>
+#include "MusicList.h"
+#include "MusicListWidget.h"
+#include <QMenu>
 
 namespace Ui {
 class FriendDialog;
