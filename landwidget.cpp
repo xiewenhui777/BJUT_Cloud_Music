@@ -109,26 +109,7 @@ bool LandWidget::judgement(QByteArray array)
     s->size = sstr[6].toInt();
     s->ip = sstr[7];
 
-    qDebug()<<s->info;
-
-//    switch(s->type){
-//    case 0: {
-
-//        break;
-//    }
-//        case 1:break;
-//        case 2:break;
-//        case 3:break;
-//        case 4:break;
-//        case 5:break;
-//        case 6:break;
-//        case 7:break;
-//        case 8:break;
-//        case 9:break;
-//        case 10:break;
-//        default:break;
-//      }
-
+//    qDebug()<<s->info;
 
 
     QString type = NULL;
@@ -180,7 +161,6 @@ bool LandWidget::judgement(QByteArray array)
 //}
 void LandWidget::on_login_clicked()
 {
-
     //点击登陆按钮时    此处注释的等连接数据库后再进行处理
 //    if(ui->id->text()=="")
 //    {
@@ -255,26 +235,26 @@ void LandWidget::on_login_clicked()
 //        }
 //    }
 
-    chuanshu *ss=new chuanshu("0######0#");         //先建立一个发送类
-    QString s="";
-    s+="$";
-    s+=ui->id->text()+"$";
-    s+="$";
-    s+=ui->password->text()+"$";
-    s+="$";
-    s+="$";
-    s+="";
+//    chuanshu *ss=new chuanshu("0######0#");         //先建立一个发送类
+//    QString s="";
+//    s+="$";
+//    s+=ui->id->text()+"$";
+//    s+="$";
+//    s+=ui->password->text()+"$";
+//    s+="$";
+//    s+="$";
+//    s+="";
 
-    qDebug()<<"s:"<<s;
+////    qDebug()<<"s:"<<s;
 
-    ss->type = 15;
-    ss->info = s;
-    ss->timer = "";
-    ss->name = ui->id->text();
-    ss->fileName = "";
-    ss->wantsendto = "";
-    ss->size = 0;
-    ss->ip = "";
+//    ss->type = 15;
+//    ss->info = s;
+//    ss->timer = "";
+//    ss->name = ui->id->text();
+//    ss->fileName = "";
+//    ss->wantsendto = "";
+//    ss->size = 0;
+//    ss->ip = "";
 
 
 
@@ -285,30 +265,30 @@ void LandWidget::on_login_clicked()
 //    mainwidget->transfer(tcpSocket,ss->name);
 
 
-    chuanshu *start=new chuanshu("0######0#");         //先建立一个发送类
-    QString s1="";
-    s1+="$";
-    s1+=ui->id->text()+"$";
-    s1+="$";
-    s1+=ui->password->text()+"$";
-    s1+="$";
-    s1+="$";
-    s1+="";
+//    chuanshu *start=new chuanshu("0######0#");         //先建立一个发送类
+//    QString s1="";
+//    s1+="$";
+//    s1+=ui->id->text()+"$";
+//    s1+="$";
+//    s1+=ui->password->text()+"$";
+//    s1+="$";
+//    s1+="$";
+//    s1+="";
 
-    qDebug()<<"s1:"<<s1;
+////    qDebug()<<"s1:"<<s1;
 
-    start->type = 0;
-    start->info = s1;
-    start->timer = "";
-    start->name = ui->id->text();
-    start->fileName = "";
-    start->wantsendto = "";
-    start->size = 0;
-    start->ip = "10.24.6.228";
+//    start->type = 0;
+//    start->info = s1;
+//    start->timer = "";
+//    start->name = ui->id->text();
+//    start->fileName = "";
+//    start->wantsendto = "";
+//    start->size = 0;
+//    start->ip = "10.24.6.228";
 
 
-    QString sender1="";
-    sender1+=QString::number(start->type)+"#"+(QString)start->info+"#"+(QString)start->timer+"#"+(QString)start->name+"#"+(QString)start->fileName+"#"+(QString)start->wantsendto+"#"+QString::number(start->size)+"#"+(QString)start->ip;
+//    QString sender1="";
+//    sender1+=QString::number(start->type)+"#"+(QString)start->info+"#"+(QString)start->timer+"#"+(QString)start->name+"#"+(QString)start->fileName+"#"+(QString)start->wantsendto+"#"+QString::number(start->size)+"#"+(QString)start->ip;
 
 //     发送
 //    char la=0xff;
@@ -321,11 +301,9 @@ void LandWidget::on_login_clicked()
     //断开连接
 //    QObject::disconnect(tcpSocket, &QTcpSocket::readyRead, this, &LandWidget::socket_Read_Data);
     mainwidget->show();
-
     if(mainwidget->doExec() == MainWidget::Rejected){           //代表主界面的退出  因此result的状态会设置为rejected
         this->show();
         qDebug()<<"quit1"<<endl;
-
     }
 
 }

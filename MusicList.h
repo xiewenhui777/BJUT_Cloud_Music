@@ -33,6 +33,8 @@ public:
     void addMusic(const QList<QUrl>& urls);
     //添加一首歌曲
     void addMusic(const Music& iMusic);
+    //通过一条URL进行添加
+//    void addMusic1(const QUrl url);
     //获取指定位置的歌曲
     Music getMusic(int pos);
     //将本歌单加入播放列表

@@ -7,7 +7,7 @@
 Music::Music(QUrl iurl)
 {
     url=iurl;
-    refreshInfo();
+    refreshInfo();          //在构造函数的时候完成所有的信息提取
 }
 
 extern QString formatTime(qint64 timeMilliSeconds);

@@ -203,8 +203,8 @@ void MainWidget::init_actions()         //一系列的动作
     ui->searchWidget->setContextMenuPolicy(Qt::CustomContextMenu);
     QAction *action_search_result=new QAction(QIcon(":/image/image/image/download1.png"),u8"下载");
     connect(action_search_result,&QAction::triggered,this,&MainWidget::download_music);
-    menu_namelist=new QMenu(this);
-    menu_namelist->addAction(action_search_result);
+    menu_searchlist=new QMenu(this);
+    menu_searchlist->addAction(action_search_result);
 
     //“换肤”的菜单项
     QAction *action_backgroud_to_default = new QAction(QIcon(":/image/image/image/default.png"),u8"更换到默认背景");
@@ -504,8 +504,61 @@ void MainWidget::namelist_delete()      //歌单列表中，某个歌曲的删�
     namelist_refresh();
 }
 
-void MainWidget::download_music(){      //在此处实现音乐的下载功能
+void MainWidget::download_music(){      //在此处实现音乐的下载功能(考虑如何添加音乐文件）
+    //进行文件下载
+//    chuanshu *ss1=new chuanshu("0######0#");
+//    ss1->type = 3;
+//    ss1->info = ui->SearchlineEdit->text();
+//    ss1->timer = "";
+//    ss1->name = userID;
+//    ss1->fileName = "斯卡布罗集市";        //接收数据包（使用一个全局变量保存filename）
+//    ss1->wantsendto = "";
+//    ss1->size = 0;
+//    ss1->ip = "";
 
+//    QString sender2="";
+//    sender2+=QString::number(ss1->type)+"#"+(QString)ss1->info+"#"+(QString)ss1->timer+"#"+(QString)ss1->name+"#"+(QString)ss1->fileName+"#"+(QString)ss1->wantsendto+"#"+QString::number(ss1->size)+"#"+(QString)ss1->ip;
+
+//    // 发送
+//    char la=0xff;
+////    qDebug() <<sender.toUtf8();
+//    tcpSocket->write(sender2.toUtf8()+la);
+//    tcpSocket->flush();
+
+
+    chuanshu *ss=new chuanshu("0######0#");
+    ss->type = 3;
+    ss->info = ui->SearchlineEdit->text();
+    ss->timer = "";
+    ss->name = userID;
+    ss->fileName = "斯卡布罗集市";
+    ss->wantsendto = "";
+    ss->size = 0;
+    ss->ip = "";
+
+    QString sender="";
+    sender+=QString::number(ss->type)+"#"+(QString)ss->info+"#"+(QString)ss->timer+"#"+(QString)ss->name+"#"+(QString)ss->fileName+"#"+(QString)ss->wantsendto+"#"+QString::number(ss->size)+"#"+(QString)ss->ip;
+
+//        // 发送
+    char la=0xff;
+    qDebug() <<sender.toUtf8();
+    tcpSocket->write(sender.toUtf8()+la);
+    tcpSocket->flush();
+
+
+    QString downloadURL="file:///D:/bjutmusic/";
+    downloadURL+="";            //中文歌曲文件名
+
+//    QStringList sstr=str.split("#");
+
+    //先进行接收文件并下载到文件夹中
+//    int pos=ui->searchWidget->currentRow();         //搜索框中的歌曲定位
+//    Music tempMusic=ui->searchWidget->musicList.getMusic(pos);
+//    Music tempMusic(downloadURL);  //建立一个音乐实体
+
+//    ui->localMusicWidget->musicList.addMusic(tempMusic);      //添加到本地歌曲中(此处应该为歌曲的本地URL)
+//    ui->localMusicWidget->refresh();
+    QMessageBox::information(this,QStringLiteral("下载"),QStringLiteral("下载成功"));     //显示下载结果
 }
 
 void MainWidget::musiclist_removeMusic()        //某一歌单中的歌曲进行移除
@@ -596,7 +649,7 @@ void MainWidget::on_searchWidget_customContextMenuRequested(const QPoint &pos)
     {
         return;
     }
-    menu_search->exec(QCursor::pos());
+    menu_searchlist->exec(QCursor::pos());
 }
 
 
@@ -876,7 +929,7 @@ void MainWidget::on_btnMin_clicked()
     showMinimized();//窗口最小化
 }
 
-void MainWidget::on_btnAdd_clicked()
+void MainWidget::on_btnAdd_clicked()            //添加音乐的按键
 {    
     QFileDialog fileDialog(this);
     fileDialog.setAcceptMode(QFileDialog::AcceptOpen);
@@ -944,6 +997,7 @@ void MainWidget::on_playListWidget_doubleClicked(const QModelIndex &index)  //�
     playlist->setCurrentIndex(i);
     player->play();
 }
+
 void MainWidget::on_localMusicWidget_doubleClicked(const QModelIndex &index)
 {
     playlist->clear();  //将当前播放列表进行清空
@@ -1175,6 +1229,8 @@ void MainWidget::on_musicsraech_clicked(){
     testMusic.duration=120;
     testMusic.albumTitle="test case";
     testMusic.audioBitRate=32000;
+    ui->searchWidget->clear();
+    ui->searchWidget->musicList.clear();        //每次把搜索的歌单列表进行清空
     ui->searchWidget->musicList.addMusic(testMusic);        //添加歌曲
 //    ui->searchWidget->musicList.addMusic(musiclist[musiclist_index].getMusic(pos));
     ui->searchWidget->refresh();

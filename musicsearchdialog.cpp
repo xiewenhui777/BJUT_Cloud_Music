@@ -48,25 +48,25 @@ void MusicSearchDialog::search(){
     if (!strText.isEmpty())             //此处应该修改为当搜索不到歌曲时  则显示“无当前搜索歌曲”（这得结合数据库去实现）
     {
 
-        chuanshu *ss=new chuanshu("0######0#");
-        ss->type = 17;
-        ss->info = ui->SearchlineEdit->text();
-        ss->timer = "";
-        ss->name = userID;
-        ss->fileName = "";
-        ss->wantsendto = "";
-        ss->size = 0;
-        ss->ip = "";
+//        chuanshu *ss=new chuanshu("0######0#");
+//        ss->type = 17;
+//        ss->info = ui->SearchlineEdit->text();
+//        ss->timer = "";
+//        ss->name = userID;
+//        ss->fileName = "";
+//        ss->wantsendto = "";
+//        ss->size = 0;
+//        ss->ip = "";
 
-        QString sender="";
-        sender+=QString::number(ss->type)+"#"+(QString)ss->info+"#"+(QString)ss->timer+"#"+(QString)ss->name+"#"+(QString)ss->fileName+"#"+(QString)ss->wantsendto+"#"+QString::number(ss->size)+"#"+(QString)ss->ip;
+//        QString sender="";
+//        sender+=QString::number(ss->type)+"#"+(QString)ss->info+"#"+(QString)ss->timer+"#"+(QString)ss->name+"#"+(QString)ss->fileName+"#"+(QString)ss->wantsendto+"#"+QString::number(ss->size)+"#"+(QString)ss->ip;
 
-        // 发送
-        char la=0xff;
-        qDebug() <<sender.toUtf8();
-        tcpSocket->write(sender.toUtf8()+la);
-        tcpSocket->flush();
-        qDebug() <<"search send";
+//        // 发送
+//        char la=0xff;
+////        qDebug() <<sender.toUtf8();
+//        tcpSocket->write(sender.toUtf8()+la);
+//        tcpSocket->flush();
+////        qDebug() <<"search send";
 
 
         QMessageBox::information(this, QStringLiteral("搜索"), QStringLiteral("搜索内容为%1").arg(strText));
