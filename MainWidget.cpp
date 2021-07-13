@@ -46,7 +46,7 @@ MainWidget::MainWidget(QWidget *parent) :
     tcpSocket=new QTcpSocket();
     tcpSocket->abort();
     //连接服务器
-    tcpSocket->connectToHost("10.24.10.40", 8520);
+    tcpSocket->connectToHost("10.19.14.181", 8520);
 
     //等待连接成功
     if(!tcpSocket->waitForConnected(30000))
@@ -420,7 +420,7 @@ void MainWidget::local_to_upload(){
     qDebug()<<"upload1";
     QStringList arguments;//用于传参数
     QString program = "‪D:\\Transfer\\send.exe"; //外部程序地址
-    arguments <<"10.24.10.40"<<"8888";
+    arguments <<"10.19.14.181"<<"8888";
     qDebug()<<"upload2";
     QProcess process(this);
     process.startDetached(program, arguments);//启动程序
@@ -455,7 +455,7 @@ void MainWidget::local_to_upload(){
     start->fileName = tempmusic.title;
     start->wantsendto = "";
     start->size = 0;
-    start->ip = "10.24.10.40";
+    start->ip = "10.19.14.181";
 
     QString sender="";
     sender+=QString::number(start->type)+"#"+(QString)start->info+"#"+(QString)start->timer+"#"+(QString)start->name+"#"+(QString)start->fileName+"#"+(QString)start->wantsendto+"#"+QString::number(start->size)+"#"+(QString)start->ip;
@@ -1289,8 +1289,13 @@ void MainWidget::on_commment_clicked(){
 
 //}
 void MainWidget::testlogin(){
+    int stateflag=0;        //登录状态判断
     test.show();
+    test.setSocket(tcpSocket,&stateflag);      //传输套接字
     test.exec();
+
+    qDebug()<<"state:"<<stateflag;
+    if(stateflag)   ui->loginlabel->setText("已登录");
 }
 
 void MainWidget::socket_Read_Data()
@@ -1316,7 +1321,7 @@ void MainWidget::socket_Read_Data()
         qDebug()<<"s1";
         QStringList arguments;//用于传参数
         QString program = "D:\\Transfer\\receive.exe"; //外部程序地址
-        arguments <<"10.24.10.40"<<"8888";
+        arguments <<"10.19.14.181"<<"8888";
         qDebug()<<"s2";
         QProcess process(this);
         process.startDetached(program, arguments);//启动程序

@@ -18,6 +18,12 @@ class testDialog : public QDialog
 public:
     explicit testDialog(QWidget *parent = nullptr);
     ~testDialog();
+    int *stateflag;
+    void setSocket(QTcpSocket *soc,int *flag)
+    {
+        tcpSocket = soc;
+        stateflag=flag;
+    }
 
 private:
     Ui::testDialog *ui;

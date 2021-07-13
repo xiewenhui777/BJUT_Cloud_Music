@@ -173,7 +173,8 @@ void testDialog::on_login_clicked()
 //        qDebug()<<"quit1"<<endl;
 
 //    }
-
+    //若登陆成功 登录状态置1
+    *stateflag=1;
     exec();     //登录进程结束
     close();
 
@@ -187,7 +188,7 @@ void testDialog::on_registeButton_clicked()
 //    qDebug()<<"in regi";
     regi = new Register();
     regi->state=0;
-    regi->setSocket(this->tcpSocket);
+    regi->setSocket(this->tcpSocket);       //设置套接字
     regi->show();
 
 //    if(regi->doExec() == Register::Rejected){           //代表主界面的退出  因此result的状态会设置为rejected
