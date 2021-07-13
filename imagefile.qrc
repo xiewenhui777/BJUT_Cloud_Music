@@ -92,5 +92,9 @@
         <file>image/image/upload.png</file>
         <file>image/image/download1.png</file>
         <file>image/image/friend.png</file>
+        <file>image/background/bk1.jpg</file>
+        <file>image/background/bk.jpg</file>
+        <file>image/image/chat.png</file>
+        <file>image/image/ziliao.png</file>
     </qresource>
 </RCC>

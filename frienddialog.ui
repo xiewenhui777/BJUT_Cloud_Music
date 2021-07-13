@@ -13,24 +13,43 @@
   <property name="windowTitle">
    <string>Dialog</string>
   </property>
+  <property name="styleSheet">
+   <string notr="true">background-image: url(:/image/image/background/bk.jpg);</string>
+  </property>
   <widget class="QLineEdit" name="SearchlineEdit">
    <property name="geometry">
     <rect>
-     <x>90</x>
+     <x>110</x>
      <y>40</y>
      <width>371</width>
      <height>31</height>
     </rect>
    </property>
+   <property name="font">
+    <font>
+     <family>Arial</family>
+     <pointsize>10</pointsize>
+     <weight>75</weight>
+     <bold>true</bold>
+    </font>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">background-color: rgb(255, 255, 255);
+color: rgb(255, 255, 255);
+</string>
+   </property>
   </widget>
   <widget class="QPushButton" name="addfriend">
    <property name="geometry">
     <rect>
-     <x>140</x>
+     <x>160</x>
      <y>80</y>
      <width>93</width>
      <height>28</height>
     </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">color: rgb(255, 255, 255);</string>
    </property>
    <property name="text">
     <string>添加好友</string>
@@ -39,11 +58,14 @@
   <widget class="QPushButton" name="deletefriend">
    <property name="geometry">
     <rect>
-     <x>310</x>
+     <x>330</x>
      <y>80</y>
      <width>93</width>
      <height>28</height>
     </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">color: rgb(255, 255, 255);</string>
    </property>
    <property name="text">
     <string>删除好友</string>
@@ -52,7 +74,7 @@
   <widget class="QLabel" name="label">
    <property name="geometry">
     <rect>
-     <x>10</x>
+     <x>30</x>
      <y>10</y>
      <width>151</width>
      <height>31</height>
@@ -65,6 +87,9 @@
      <weight>75</weight>
      <bold>true</bold>
     </font>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">color: rgb(255, 255, 255);</string>
    </property>
    <property name="text">
     <string>输入好友用户ID：</string>
@@ -87,6 +112,9 @@
      <bold>true</bold>
     </font>
    </property>
+   <property name="styleSheet">
+    <string notr="true">color: rgb(255, 255, 255);</string>
+   </property>
    <property name="text">
     <string>好友列表：</string>
    </property>
@@ -99,6 +127,9 @@
      <width>93</width>
      <height>28</height>
     </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">color: rgb(255, 255, 255);</string>
    </property>
    <property name="text">
     <string>查看信息</string>
@@ -113,16 +144,22 @@
      <height>28</height>
     </rect>
    </property>
+   <property name="styleSheet">
+    <string notr="true">color: rgb(255, 255, 255);</string>
+   </property>
    <property name="text">
     <string>聊天</string>
+   </property>
+   <property name="flat">
+    <bool>false</bool>
    </property>
   </widget>
   <widget class="MusicListWidget" name="friendlistWidget">
    <property name="geometry">
     <rect>
-     <x>10</x>
+     <x>0</x>
      <y>190</y>
-     <width>571</width>
+     <width>601</width>
      <height>381</height>
     </rect>
    </property>

@@ -20,9 +20,14 @@ public:
 
 private:
     Ui::FriendDialog *ui;
+    QMenu *menu_list;
+
 
 private slots:
     void addFri();
+    void chatfunction();
+    void viewinfo();
+    void on_friendlistWidget_customContextMenuRequested(const QPoint &pos);
 };
 
 #endif // FRIENDDIALOG_H
