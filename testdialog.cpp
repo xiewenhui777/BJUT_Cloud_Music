@@ -105,13 +105,13 @@ void testDialog::on_login_clicked()
 
     chuanshu *ss=new chuanshu("0######0#");         //先建立一个发送类
     QString s="";
-    s+="$";
+    s+="0$";
     s+=ui->id->text()+"$";
-    s+="$";
+    s+="0$";
     s+=ui->password->text()+"$";
-    s+="$";
-    s+="$";
-    s+="";
+    s+="0$";
+    s+="0$";
+    s+="0";
 
     qDebug()<<"s:"<<s;
 
@@ -124,6 +124,15 @@ void testDialog::on_login_clicked()
     ss->size = 0;
     ss->ip = "";
 
+    QString sender="";
+    sender+=QString::number(ss->type)+"#"+(QString)ss->info+"#"+(QString)ss->timer+"#"+(QString)ss->name+"#"+(QString)ss->fileName+"#"+(QString)ss->wantsendto+"#"+QString::number(ss->size)+"#"+(QString)ss->ip;
+
+    // 发送
+    char la=0xff;
+    qDebug() <<sender.toUtf8();
+    tcpSocket->write(sender.toUtf8()+la);
+    tcpSocket->flush();
+    qDebug() <<"send over";
 
 
 //    extern int quit_login;
@@ -158,7 +167,6 @@ void testDialog::on_login_clicked()
     sender1+=QString::number(start->type)+"#"+(QString)start->info+"#"+(QString)start->timer+"#"+(QString)start->name+"#"+(QString)start->fileName+"#"+(QString)start->wantsendto+"#"+QString::number(start->size)+"#"+(QString)start->ip;
 
 //     发送
-    char la=0xff;
     qDebug() <<sender1.toUtf8();
     tcpSocket->write(sender1.toUtf8()+la);
     tcpSocket->flush();
