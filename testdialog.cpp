@@ -136,38 +136,6 @@ void testDialog::on_login_clicked()
     qDebug() <<"send over";
 
 
-
-//    chuanshu *start=new chuanshu("0######0#");         //先建立一个发送类(在登录成功之后再发送给服务器)
-//    QString s1="";
-//    s1+="$";
-//    s1+=ui->id->text()+"$";
-//    s1+="$";
-//    s1+=ui->password->text()+"$";
-//    s1+="$";
-//    s1+="$";
-//    s1+="";
-
-//    qDebug()<<"login info2:"<<s1;
-
-//    start->type = 0;
-//    start->info = s1;
-//    start->timer = "";
-//    start->name = ui->id->text();
-//    start->fileName = "";
-//    start->wantsendto = "";
-//    start->size = 0;
-//    start->ip = "10.24.6.228";
-
-
-//    QString sender1="";
-//    sender1+=QString::number(start->type)+"#"+(QString)start->info+"#"+(QString)start->timer+"#"+(QString)start->name+"#"+(QString)start->fileName+"#"+(QString)start->wantsendto+"#"+QString::number(start->size)+"#"+(QString)start->ip;
-
-////     发送
-//    qDebug() <<sender1.toUtf8();
-//    tcpSocket->write(sender1.toUtf8()+la);
-//    tcpSocket->flush();
-//    qDebug() <<"login over";
-
     //登录完后进行清空文本框
     ui->id->text().clear();
     ui->password->text().clear();

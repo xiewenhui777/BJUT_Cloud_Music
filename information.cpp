@@ -24,7 +24,7 @@ information::~information()
 
 void information::edit_clicked(){
     ui->email->setEnabled(true);
-    ui->userID->setEnabled(true);
+//    ui->userID->setEnabled(true);
     ui->phone->setEnabled(true);
     ui->gender->setEnabled(true);
     ui->name->setEnabled(true);
@@ -36,9 +36,9 @@ void information::save_clicked(){
     exec();     //进程结束
 }
 void information::info_show(){      //设置个人信息显示
-    ui->userID->setText(info_username);
-    ui->name->setText(info_userID);
-    ui->gender->setText(info_usertel);
-    ui->phone->setText(info_usergender);
+    ui->userID->setText(info_userID);
+    ui->name->setText(info_username);
+    ui->gender->setText(info_usergender);
+    ui->phone->setText(info_usertel);
     ui->email->setText(info_useremail);
 }

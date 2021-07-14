@@ -24,7 +24,7 @@ public:
         info_usergender=gender;
     }
     void setemail(QString email){
-        info_username=email;
+        info_useremail=email;
     }
     void settel(QString tel){
         info_usertel=tel;
