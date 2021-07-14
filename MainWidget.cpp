@@ -1269,7 +1269,7 @@ int MainWidget::doExec()
 void MainWidget::on_btnPersonal_clicked(){      //此处主界面不隐藏起来
     extern int quit_login;
     quit_login=0;           //退出状态重置
-
+    personal.setSocket(tcpSocket);      //提前设置套接字
     personal.show();
     personal.exec();
 
@@ -1369,7 +1369,24 @@ void MainWidget::socket_Read_Data()
             personal.setGender(personalinfo[2]);
             personal.showInfo();       //刷新用户ID
            break;
-        }case 15:{  //登录成功
+        }case 11:{      //接到用户信息
+            qDebug()<<"case 10:";
+            QString info=sstr[4];       //接受回传信息
+            QStringList personalinfo=info.split("$");
+            qDebug()<<"sstr[4]:"<<sstr[4];
+
+            //进行内置用户信息
+            personal.setTel(personalinfo[5]);
+            personal.setEmail(personalinfo[4]);
+            personal.setUserID(personalinfo[1]);
+            personal.setUsername(personalinfo[0]);
+            personal.setUserpassword(personalinfo[3]);
+            personal.setFriendinfo(sstr[1]);
+            personal.setGender(personalinfo[2]);
+            personal.showInfo();       //刷新用户ID
+        }
+
+        case 15:{  //登录成功
 
             if(sstr[1].toInt()==0){ //当登录完成的回包的第二个字段为0时 代表能正常接受
                 chuanshu *start=new chuanshu("0######0#");         //先建立一个发送类(在登录成功之后再发送给服务器)

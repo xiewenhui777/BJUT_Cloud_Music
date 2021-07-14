@@ -2,6 +2,8 @@
 #define INFORMATION_H
 
 #include <QDialog>
+#include "chuanshu.h"
+#include <QTcpSocket>
 
 namespace Ui {
 class information;
@@ -30,6 +32,10 @@ public:
         info_usertel=tel;
     }
     void info_show();
+    void setSocket(QTcpSocket *soc)
+    {
+        tcpSocket = soc;
+    }
 
 
 private:
@@ -39,6 +45,7 @@ private:
     QString info_usertel;
     QString info_usergender;
     QString info_useremail;
+    QTcpSocket *tcpSocket;
 
 private slots:
     void edit_clicked();

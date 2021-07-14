@@ -32,6 +32,36 @@ void information::edit_clicked(){
 //    exec();     //进程结束
 }
 void information::save_clicked(){
+    chuanshu *ss=new chuanshu("0######0#");
+    QString s="";
+    s+=ui->name->text()+"$";
+    s+=ui->userID->text()+"$";
+    s+=ui->gender->text()+"$";
+    s+="$";
+    s+=ui->phone->text()+"$";
+    s+=ui->email->text()+"$";
+    s+="";
+
+    qDebug()<<"register info:"<<s;
+
+    ss->type = 11;
+    ss->info = s;
+    ss->timer = "";
+    ss->name = ui->name->text();
+    ss->fileName = "";
+    ss->wantsendto = "";
+    ss->size = 0;
+    ss->ip = "";
+
+    QString sender="";
+    sender+=QString::number(ss->type)+"#"+(QString)ss->info+"#"+(QString)ss->timer+"#"+(QString)ss->name+"#"+(QString)ss->fileName+"#"+(QString)ss->wantsendto+"#"+QString::number(ss->size)+"#"+(QString)ss->ip;
+
+    // 发送
+    char la=0xff;
+    qDebug() <<sender.toUtf8();
+    tcpSocket->write(sender.toUtf8()+la);
+    tcpSocket->flush();
+    qDebug() <<"change info send";
     close();
     exec();     //进程结束
 }

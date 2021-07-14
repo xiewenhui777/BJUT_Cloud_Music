@@ -66,18 +66,27 @@ void PersonalDialog::on_headimage_clicked()
 void PersonalDialog::changePasswod_clicked()        //修改密码的按钮
 {
     change1.setpassword(userpassword);
+    change1.setSocket(tcpSocket);
+    change1.setuserID(userID);
+    change1.setname(username);
+    change1.setemail(useremail);
+    change1.setgender(usergender);
+    change1.settel(usertel);
     change1.show();
     change1.exec();
 }
 
 void PersonalDialog::info_clicked()        //显示个人资料
 {
-    info1.setuserID(userID);
+    info1.setuserID(userID);        //在每次打开个人信息界面前都进行信息更新
     info1.setname(username);
     info1.setemail(useremail);
     info1.setgender(usergender);
     info1.settel(usertel);
     info1.info_show();      //个人信息先显示
+    info1.setSocket(tcpSocket);     //传输套接字
+
+
     info1.show();
     info1.exec();
 }

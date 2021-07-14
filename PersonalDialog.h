@@ -10,6 +10,9 @@
 #include "information.h"
 #include "feedbackdialog.h"
 #include "frienddialog.h"
+#include "chuanshu.h"
+#include <QTcpSocket>
+
 #include  <QDebug>
 
 extern int quit_login;       //储存是否退出的状态
@@ -50,6 +53,11 @@ public:
 
     void showInfo();
 
+    void setSocket(QTcpSocket *soc)
+    {
+        tcpSocket = soc;
+    }
+
 
 private:
     Ui::PersonalDialog *ui;
@@ -66,6 +74,7 @@ private:
     QString useremail;
     QString friendinfo;     //好友信息（包括在线状态）
     QString usergender;
+    QTcpSocket *tcpSocket;
 
 private slots:          //响应时间需要单独加一个slot!!!
     void on_exit_clicked();
