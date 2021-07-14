@@ -47,7 +47,7 @@ void information::save_clicked(){
     ss->type = 11;
     ss->info = s;
     ss->timer = "";
-    ss->name = ui->name->text();
+    ss->name = ui->userID->text();
     ss->fileName = "";
     ss->wantsendto = "";
     ss->size = 0;

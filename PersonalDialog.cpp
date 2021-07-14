@@ -83,6 +83,8 @@ void PersonalDialog::info_clicked()        //显示个人资料
     info1.setemail(useremail);
     info1.setgender(usergender);
     info1.settel(usertel);
+    qDebug()<<"usergender:"<<usergender;
+    qDebug()<<"usertel:"<<usertel;
     info1.info_show();      //个人信息先显示
     info1.setSocket(tcpSocket);     //传输套接字
 
