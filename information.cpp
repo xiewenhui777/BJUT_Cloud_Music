@@ -62,6 +62,11 @@ void information::save_clicked(){
     tcpSocket->write(sender.toUtf8()+la);
     tcpSocket->flush();
     qDebug() <<"change info send";
+    ui->email->setEnabled(false);
+    ui->userID->setEnabled(false);
+    ui->phone->setEnabled(false);
+    ui->gender->setEnabled(false);
+    ui->name->setEnabled(false);
     close();
     exec();     //进程结束
 }

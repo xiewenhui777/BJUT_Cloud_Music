@@ -21,8 +21,6 @@ public:
     ~LandWidget();
 
 
-
-
 private slots:
     void on_login_clicked();
 

@@ -1360,8 +1360,8 @@ void MainWidget::socket_Read_Data()
             qDebug()<<"sstr[4]:"<<sstr[4];
 
             //进行内置用户信息
-            personal.setTel(personalinfo[5]);
-            personal.setEmail(personalinfo[4]);
+            personal.setTel(personalinfo[4]);
+            personal.setEmail(personalinfo[5]);
             personal.setUserID(personalinfo[1]);
             personal.setUsername(personalinfo[0]);
             personal.setUserpassword(personalinfo[3]);
@@ -1370,20 +1370,21 @@ void MainWidget::socket_Read_Data()
             personal.showInfo();       //刷新用户ID
            break;
         }case 11:{      //接到用户信息
-            qDebug()<<"case 10:";
-            QString info=sstr[4];       //接受回传信息
+            qDebug()<<"case 11:";
+            QString info=sstr[1];       //接受回传信息
             QStringList personalinfo=info.split("$");
-            qDebug()<<"sstr[4]:"<<sstr[4];
+            qDebug()<<"sstr[1]:"<<sstr[1];
 
             //进行内置用户信息
-            personal.setTel(personalinfo[5]);
-            personal.setEmail(personalinfo[4]);
+            personal.setTel(personalinfo[4]);
+            personal.setEmail(personalinfo[5]);
             personal.setUserID(personalinfo[1]);
             personal.setUsername(personalinfo[0]);
             personal.setUserpassword(personalinfo[3]);
             personal.setFriendinfo(sstr[1]);
             personal.setGender(personalinfo[2]);
             personal.showInfo();       //刷新用户ID
+            break;
         }
 
         case 15:{  //登录成功
