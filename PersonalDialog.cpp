@@ -71,6 +71,12 @@ void PersonalDialog::changePasswod_clicked()        //修改密码的按钮
 
 void PersonalDialog::info_clicked()        //显示个人资料
 {
+    info1.setuserID(userID);
+    info1.setname(username);
+    info1.setemail(useremail);
+    info1.setgender(usergender);
+    info1.settel(usertel);
+    info1.info_show();      //个人信息先显示
     info1.show();
     info1.exec();
 }
@@ -85,3 +91,6 @@ void PersonalDialog::on_friend_clicked(){
     fri.exec();
 }
 
+void PersonalDialog::showInfo(){        //显示个人信息（如用户名
+    ui->namelabel->setText(username);       //设置用户名
+}

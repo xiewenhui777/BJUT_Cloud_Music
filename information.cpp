@@ -6,11 +6,6 @@ information::information(QWidget *parent) :
     ui(new Ui::information)
 {
     ui->setupUi(this);
-//    ui->userID->setFocusPolicy(Qt::NoFocus);    //代表文本框失去焦点 不可编辑了
-//    ui->phone->setFocusPolicy(Qt::NoFocus);
-//    ui->gender->setFocusPolicy(Qt::NoFocus);
-//    ui->name->setFocusPolicy(Qt::NoFocus);
-//    ui->email->setFocusPolicy(Qt::NoFocus);
     ui->email->setEnabled(false);
     ui->userID->setEnabled(false);
     ui->phone->setEnabled(false);
@@ -28,22 +23,22 @@ information::~information()
 
 
 void information::edit_clicked(){
-//    ui->userID->setFocus();    //代表文本框重新获得焦点
-//    ui->phone->setFocus();
-//    ui->gender->setFocus();
-//    ui->name->setFocus();
-//    ui->email->setFocus();
-
     ui->email->setEnabled(true);
     ui->userID->setEnabled(true);
     ui->phone->setEnabled(true);
     ui->gender->setEnabled(true);
     ui->name->setEnabled(true);
-
 //    close();
 //    exec();     //进程结束
 }
 void information::save_clicked(){
     close();
     exec();     //进程结束
+}
+void information::info_show(){      //设置个人信息显示
+    ui->userID->setText(info_username);
+    ui->name->setText(info_userID);
+    ui->gender->setText(info_usertel);
+    ui->phone->setText(info_usergender);
+    ui->email->setText(info_useremail);
 }

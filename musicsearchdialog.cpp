@@ -4,7 +4,7 @@
 #include <QVBoxLayout>
 #include "chuanshu.h"
 #include <QProcess>
-
+#include "iphead.h"
 MusicSearchDialog::MusicSearchDialog(QWidget *parent) :
     QDialog(parent),
     ui(new Ui::MusicSearchDialog)
@@ -95,7 +95,7 @@ void MusicSearchDialog::socket_Read_Data()
     if(sstr[0].toInt()==3){        //判断回传包的类型
         QStringList arguments;//用于传参数
         QString program = "D:\\Transfer\\receive.exe"; //外部程序地址
-        arguments <<"10.24.10.40"<<"8888";
+        arguments <<ipcon<<"8888";
         QProcess process(this);
         process.startDetached(program, arguments);//启动程序
         process.close();

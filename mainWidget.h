@@ -128,7 +128,7 @@ private:
     //搜索结果的右键菜单
     QMenu *menu_searchlist;
 
-    PersonalDialog *personal;       //跳转个人信息的按钮
+    PersonalDialog personal;       //跳转个人信息的按钮
 
 protected:
     //窗口拖动时记录的起始点

@@ -75,7 +75,8 @@ HEADERS += \
     chuanshu.h \
     logindialog.h \
     testdialog.h \
-    registerdialog.h
+    registerdialog.h \
+    iphead.h
 
 FORMS += \
     MusicListDialog.ui \

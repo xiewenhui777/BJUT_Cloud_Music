@@ -14,9 +14,31 @@ class information : public QDialog
 public:
     explicit information(QWidget *parent = nullptr);
     ~information();
+    void setname(QString name){
+        info_username=name;
+    }
+    void setuserID(QString ID){
+        info_userID=ID;
+    }
+    void setgender(QString gender){
+        info_usergender=gender;
+    }
+    void setemail(QString email){
+        info_username=email;
+    }
+    void settel(QString tel){
+        info_usertel=tel;
+    }
+    void info_show();
+
 
 private:
     Ui::information *ui;
+    QString info_username;
+    QString info_userID;
+    QString info_usertel;
+    QString info_usergender;
+    QString info_useremail;
 
 private slots:
     void edit_clicked();

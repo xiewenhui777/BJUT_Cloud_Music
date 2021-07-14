@@ -24,6 +24,7 @@ public:
         tcpSocket = soc;
 //        stateflag=flag;
     }
+    QString loginID;
 
 private:
     Ui::testDialog *ui;
