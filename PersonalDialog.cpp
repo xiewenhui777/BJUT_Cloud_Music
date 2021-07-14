@@ -65,6 +65,7 @@ void PersonalDialog::on_headimage_clicked()
 
 void PersonalDialog::changePasswod_clicked()        //修改密码的按钮
 {
+    change1.setpassword(userpassword);
     change1.show();
     change1.exec();
 }

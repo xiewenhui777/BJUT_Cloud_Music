@@ -14,9 +14,13 @@ class changePassword : public QDialog
 public:
     explicit changePassword(QWidget *parent = nullptr);
     ~changePassword();
+    void setpassword(QString password){
+        userpassword=password;
+    }
 
 private:
     Ui::changePassword *ui;
+    QString userpassword;
 
 private slots:
     void on_exit_clicked();

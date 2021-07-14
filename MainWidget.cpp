@@ -1403,7 +1403,7 @@ void MainWidget::socket_Read_Data()
 
                 ui->loginlabel->setText("已登录");
                 QMessageBox::information(this, QStringLiteral("登录"), QStringLiteral("登录成功"));//显示登录成功信息的弹窗
-            }
+            }else  QMessageBox::information(this, QStringLiteral("登录"), QStringLiteral("登录失败"));
             break;
         }
         case 16:{
