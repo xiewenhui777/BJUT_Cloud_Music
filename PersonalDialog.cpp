@@ -95,11 +95,20 @@ void PersonalDialog::on_feedback_clicked(){
 }
 
 void PersonalDialog::on_friend_clicked(){       //好友列表展示
+    fri.setUserid(userID);
     fri.setFriend(friendlist);      //传输好友列表信息
     fri.showlist();                 //好友列表内置
+    fri.setSocket(tcpSocket);     //传输套接字
+//    fri.showsong();
     fri.show();
     fri.exec();
 }
 void PersonalDialog::showInfo(){        //显示个人信息（如用户名
     ui->namelabel->setText(username);       //设置用户名
+}
+
+void PersonalDialog::setSonglist(QString list){
+    Songlist=list;
+    qDebug()<<"personal songlist:"<<Songlist;
+    fri.setSonglist(list);
 }

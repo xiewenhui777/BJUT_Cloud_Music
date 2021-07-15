@@ -39,11 +39,14 @@ private:
         QString usergender;
         QTcpSocket *tcpSocket;
      QString friendlist;        //好友列表
+     QString Songlist;
+     feedbackDialog feedback;       //反馈
+     FriendDialog fri;       //好友
+
 public:
     explicit PersonalDialog(QWidget *parent = nullptr);
     ~PersonalDialog();
-    feedbackDialog feedback;       //反馈
-    FriendDialog fri;       //好友
+
     void setUsername(QString name){
             username=name;
         }
@@ -76,6 +79,7 @@ public:
         void setFriend(QString list){
             friendlist=list;
         }
+        void setSonglist(QString list);
 
 
 private slots:          //响应时间需要单独加一个slot!!!

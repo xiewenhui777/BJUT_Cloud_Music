@@ -220,6 +220,7 @@ void MainWidget::init_actions()         //一系列的动作
 //    connect(ui->login,SIGNAL(clicked()), this,SLOT(on_login_clicked1()));
     connect(ui->login,SIGNAL(clicked()), this,SLOT(testlogin()));
     connect(ui->register_btn,SIGNAL(clicked()), this,SLOT(on_register_clicked()));
+    connect(ui->freshsonglist,SIGNAL(clicked()), this,SLOT(showsonglist()));
 //    connect(ui->btnPersonal,SIGNAL(clicked()), this,SLOT(on_btnPersonal_clicked()));
 
 }
@@ -528,7 +529,7 @@ void MainWidget::download_music(){      //在此处实现音乐的下载功能
     chuanshu *ss=new chuanshu("0######0#");
     QStringList pr=searchmusicname.split("@@@");
     int pos=ui->searchWidget->currentRow();
-    qDebug() <<"xxxxxxxxxxxxxx     "<<pos<<"   "<<pr[pos];
+    qDebug() <<"pos location:"<<pos<<"pr[pos]:"<<pr[pos];
             ss->type = 3;
             ss->info = ui->SearchlineEdit->text();
             ss->timer = "";
@@ -1408,6 +1409,7 @@ void MainWidget::socket_Read_Data()
 //            QStringList friendlist=str.split("#");            //好友列表
 //            personal.setFriend(sstr[1]);     //向用户界面传输好友列表
 //            qDebug()<<"main friendlist:"<<sstr[1];
+            break;
         }
         case 10:{      //在登录成功完成后接收数据将用户信息传入到个人界面中
                     qDebug()<<"case 10:";
@@ -1536,6 +1538,16 @@ void MainWidget::socket_Read_Data()
             }
             break;
             }
+        case 30:{   //接受好友歌单
+            friendsonglist=sstr[1];         //保存数据包的info字段
+            qDebug()<<"sstr1:"<<sstr[1];
+            personal.setSonglist(friendsonglist);           //传输歌单数据
+            break;
+        }case 31:{
+            friendquzi=sstr[1];//保存数据包的info字段
+            qDebug()<<"friendquzi:"<<friendquzi;
+            break;
+        }
         default:{
 
          }
@@ -1551,3 +1563,31 @@ void MainWidget::on_register_clicked(){     //注册按键实现
     register1.exec();
 }
 
+
+void MainWidget::showsonglist(){        //显示好友列表（可以改成显示好友歌曲）
+    ui->stackedWidget->setCurrentIndex(4);
+
+    ui->searchWidget->musicList.clear();
+    ui->searchWidget->clear();
+    QStringList Friendinfo=friendquzi.split("$");           //
+    QString musicname="";
+    for(int i=0;i<Friendinfo.size();i++){     //
+        QString info1=Friendinfo[i];           //
+        qDebug()<<"each quzi:"<<info1;          //
+
+        Music testMusic;
+        testMusic.url="fake url";      //
+        testMusic.title=info1;     //
+        testMusic.author=" ";       //
+        testMusic.duration=0;       //无用
+        testMusic.albumTitle="FriendSong";
+        testMusic.audioBitRate=8888;            //可以随便设置
+        musicname+=info1;
+        musicname+="@@@";
+        ui->searchWidget->musicList.addMusic(testMusic);        //添加歌曲
+    }
+    searchmusicname=musicname;
+    qDebug()<<"friend searchmusicname:"<<searchmusicname;
+    ui->searchWidget->refresh();        //添加完成后进行显示
+
+}

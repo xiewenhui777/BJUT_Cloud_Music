@@ -93,7 +93,7 @@
     <string notr="true">color: rgb(255, 255, 255);</string>
    </property>
    <property name="text">
-    <string>I Lived (《赐予者》电影插曲|2015年苹果秋季发布会表演歌曲原曲) - OneRepublic</string>
+    <string/>
    </property>
    <property name="alignment">
     <set>Qt::AlignCenter</set>

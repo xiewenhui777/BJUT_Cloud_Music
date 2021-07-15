@@ -128,6 +128,8 @@ private:
     QMenu *menu_searchlist;
 
     PersonalDialog personal;       //跳转个人信息的按钮      //跳转个人信息的按钮
+    QString friendsonglist;     //好友歌单
+    QString friendquzi;         //好友歌曲
 
 protected:
     //窗口拖动时记录的起始点
@@ -217,6 +219,7 @@ private slots:
     void testlogin();
     void on_register_clicked();
     void freshpr();
+    void showsonglist();
 
 
     //自定义终止函数
