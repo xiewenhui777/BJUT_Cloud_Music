@@ -19,7 +19,6 @@ void MusicListDialog::setMusicList(MusicList &ilist, bool *results)
     ui->listWidget->setIcon(QIcon(":/image/image/image/dialog-music.png"));
     ilist.addToListWidget(ui->listWidget);
     num=ui->listWidget->count();
-    
 }
 
 void MusicListDialog::on_buttonBox_accepted()

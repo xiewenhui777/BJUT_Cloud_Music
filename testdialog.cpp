@@ -103,7 +103,6 @@ void testDialog::on_login_clicked()
 //        }
 //    }
     loginID=ui->id->text();     //储存登录ID
-
     chuanshu *ss=new chuanshu("0######0#");         //先建立一个发送类
     QString s="";
     s+="0$";
@@ -135,10 +134,10 @@ void testDialog::on_login_clicked()
     tcpSocket->flush();
     qDebug() <<"send over";
 
-
     //登录完后进行清空文本框
     ui->id->text().clear();
     ui->password->text().clear();
+
     exec();     //登录进程结束
     close();
 

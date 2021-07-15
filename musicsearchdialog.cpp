@@ -32,7 +32,6 @@ MusicSearchDialog::MusicSearchDialog(QWidget *parent) :
 
     connect(ui->SearchButton, SIGNAL(clicked(bool)), this, SLOT(search()));
     connect(ui->downloadButton, SIGNAL(clicked(bool)), this, SLOT(on_download_clicked()));
-//    QObject::connect(tcpSocket, &QTcpSocket::readyRead, this, &MusicSearchDialog::socket_Read_Data);
 
 }
 

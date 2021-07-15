@@ -57,6 +57,8 @@ public:
     void neaten();
     //清空本歌单
     void clear();
+//    void addMusic1(const QUrl &url);
+    void addMusic1(QUrl url);
 };
 
 #endif // MUSICLIST_H

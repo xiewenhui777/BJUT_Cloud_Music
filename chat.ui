@@ -104,14 +104,17 @@
     <string>好友：</string>
    </property>
   </widget>
-  <widget class="QLineEdit" name="lineEdit">
+  <widget class="QLabel" name="friendname">
    <property name="geometry">
     <rect>
      <x>80</x>
      <y>10</y>
-     <width>113</width>
-     <height>21</height>
+     <width>81</width>
+     <height>16</height>
     </rect>
+   </property>
+   <property name="text">
+    <string/>
    </property>
   </widget>
  </widget>

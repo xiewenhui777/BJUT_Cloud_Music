@@ -97,20 +97,17 @@ void registerDialog::on_pushButton_clicked()
         tcpSocket->flush();
         qDebug() <<"test send";
 
-        //清空文本框
         ui->userID->text().clear();
-        ui->name->text().clear();
-        ui->gender->text().clear();
-        ui->phone->text().clear();
-        ui->email->text().clear();
-        ui->pass->text().clear();
-        ui->pass_->text().clear();
+              ui->name->text().clear();
+              ui->gender->text().clear();
+              ui->phone->text().clear();
+              ui->email->text().clear();
+              ui->pass->text().clear();
+              ui->pass_->text().clear();
 
 
-        exec();     //登录进程结束
-        close();
-
-//        QMessageBox::information(this, QStringLiteral("注册"), QStringLiteral("注册成功"));//显示注册成功信息的弹窗
+              exec();     //登录进程结束
+              close();
     }else QMessageBox::information(this, QStringLiteral("注册"), QStringLiteral("注册失败"));
 
 }

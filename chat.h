@@ -14,9 +14,14 @@ class chat : public QDialog
 public:
     explicit chat(QWidget *parent = nullptr);
     ~chat();
+    void setName(QString name){
+        friname=name;
+    }
+    void showInfo();
 
 private:
     Ui::chat *ui;
+    QString friname;
 };
 
 #endif // CHAT_H

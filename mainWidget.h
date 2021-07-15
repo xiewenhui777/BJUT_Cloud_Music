@@ -34,11 +34,11 @@ public:
     explicit MainWidget(QWidget *parent = nullptr);
     ~MainWidget() override;
     int btnMusiclist_index=0;   //记录列表按钮的奇数偶数次
-    int dianzan_num=0;          //记录点赞按钮的奇数偶数次
-
+    int praiseflag=0;//点赞按钮状态
     enum{Accepted, Rejected};
     int doExec();
-
+    int logsta=0;
+    QString searchmusicname="";
     //传输函数  用于传输用户ID和socket
 //    void transfer(QTcpSocket *Socket,QString userid){
 //        tcpSocket=Socket;
@@ -55,7 +55,6 @@ private:
     testDialog test;
     registerDialog register1;       //注册界面
     QString str;            //全局的收到数据包的QString类型
-
 //    QEventLoop* m_Loop;
 
     int result;
@@ -128,7 +127,7 @@ private:
     //搜索结果的右键菜单
     QMenu *menu_searchlist;
 
-    PersonalDialog personal;       //跳转个人信息的按钮
+    PersonalDialog personal;       //跳转个人信息的按钮      //跳转个人信息的按钮
 
 protected:
     //窗口拖动时记录的起始点
@@ -217,7 +216,7 @@ private slots:
     void socket_Read_Data();
     void testlogin();
     void on_register_clicked();
-
+    void freshpr();
 
 
     //自定义终止函数

@@ -409,84 +409,90 @@ void MainWidget::local_to_playlist()
     ui->playListWidget->refresh();
     //添加到播放器
     playlist->addMedia(tempMusic.getUrl());
+    qDebug()<<"paly url:"<<tempMusic.getUrl();
 }
 
 void MainWidget::local_to_upload(){
-    int pos=ui->localMusicWidget->currentRow();     //获取当前位置
-    Music tempmusic=ui->localMusicWidget->musicList.getMusic(pos);
-    QString addr=tempmusic.getUrl().toString();
-        QString tadd="";
-        addr=addr.right(addr.length()-8);
+    if(logsta==1){
+        int pos=ui->localMusicWidget->currentRow();     //获取当前位置
+        Music tempmusic=ui->localMusicWidget->musicList.getMusic(pos);
+        QString addr=tempmusic.getUrl().toString();
+            QString tadd="";
+            addr=addr.right(addr.length()-8);
 
-    //进行文件传送
-    qDebug()<<"upload1";
-    QStringList list = addr.split("/");//QString字符串分割函数
-      qDebug()<<addr;
-      for(int i=0;i<list.length();i++){
-          if(i!=list.length()-1){
-              tadd+=list[i]+"\\";
+        //进行文件传送
+        qDebug()<<"upload1    ";
+        QStringList list = addr.split("/");//QString字符串分割函数
+          qDebug()<<addr;
+          for(int i=0;i<list.length();i++){
+              if(i!=list.length()-1){
+                  tadd+=list[i]+"\\";
+              }
+              else{
+                  tadd+=list[i];
+              }
           }
-          else{
-              tadd+=list[i];
-          }
-      }
-      qDebug()<<endl<<tadd;
-    QStringList arguments;//用于传参数
-    QString program ="D:\\Transfer\\send.exe"; //外部程序地址
-    arguments<<tadd<<"8888";
-    qDebug()<<"upload2";
-    QProcess process(this);
-    process.startDetached(program, arguments);//启动程序
-    qDebug()<<arguments[0]<<arguments[1];
-      process.close();
-    chuanshu *start=new chuanshu("0######0#");         //在准备登录时发送一个预告 告诉服务器准备登录了
-    QString tempID="2";
-    QString singerID="22";
+          qDebug()<<endl<<tadd;
+        QStringList arguments;//用于传参数
+        QString program ="D:\\Transfer\\send.exe"; //外部程序地址
+        arguments<<tadd<<"8888";
+        qDebug()<<"upload2";
+        QProcess process(this);
+        process.startDetached(program, arguments);//启动程序
+        qDebug()<<arguments[0]<<arguments[1];
+          process.close();
+        chuanshu *start=new chuanshu("0######0#");         //在准备登录时发送一个预告 告诉服务器准备登录了
+        QString tempID="2";
+        QString singerID="22";
 
-    //替换掉#防止冲突
-    QString originText = tempmusic.albumTitle;
-    QString searchText = "#";
-    QString replaceText = "";
-    QString result = originText.replace(QRegExp(searchText), replaceText);
+        //替换掉#防止冲突
+        QString originText = tempmusic.albumTitle;
+        QString searchText = "#";
+        QString replaceText = "";
+        QString result = originText.replace(QRegExp(searchText), replaceText);
 
-    QString s1="";
-    s1+=tempmusic.title;
-    s1+="$";
-    s1+=tempmusic.author+"$";
-    s1+="0$";
-    //s1+=tempID+"$";
-    s1+="type$";
-    s1+=result+"$";         //唱片名称拼接
-    s1+=singerID+"$";
-    s1+=tempmusic.getUrl().toString();
+        QString s1="";
+        s1+=tempmusic.title;
+        s1+="$";
+        s1+=tempmusic.author+"$";
+        s1+="0$";
+        //s1+=tempID+"$";
+        s1+="type$";
+        s1+=result+"$";         //唱片名称拼接
+        s1+=singerID+"$";
+        s1+=tempmusic.getUrl().toString();
 
-    qDebug()<<"upload data:"<<s1;
+        qDebug()<<"upload data:"<<s1;
 
-    start->type = 2;
-    start->info = s1;
-    start->timer = "";
-    start->name = userID;
-    start->fileName = tempmusic.title;
-    start->wantsendto = "";
-    start->size = 0;
-    start->ip = ipcli;
+        start->type = 2;
+        start->info = s1;
+        start->timer = "";
+        start->name = userID;
+        start->fileName = list[2];
+        start->wantsendto = "";
+        start->size = 0;
+        start->ip = ipcli;
 
-    QString sender="";
-    sender+=QString::number(start->type)+"#"+(QString)start->info+"#"+(QString)start->timer+"#"+(QString)start->name+"#"+(QString)start->fileName+"#"+(QString)start->wantsendto+"#"+QString::number(start->size)+"#"+(QString)start->ip;
-
-//  执行上传数据包
-    char la=0xff;
-    qDebug() <<sender.toUtf8();
-    tcpSocket->write(sender.toUtf8()+la);
-    tcpSocket->flush();
-    qDebug() <<"upload over";
+        QString sender="";
+        sender+=QString::number(start->type)+"#"+(QString)start->info+"#"+(QString)start->timer+"#"+(QString)start->name+"#"+(QString)start->fileName+"#"+(QString)start->wantsendto+"#"+QString::number(start->size)+"#"+(QString)start->ip;
+        qDebug() <<sender;
+    //  执行上传数据包
+        char la=0xff;
+        qDebug() <<sender.toUtf8();
+        tcpSocket->write(sender.toUtf8()+la);
+        tcpSocket->flush();
+        qDebug() <<"upload over";
 
 
-    qDebug()<<"upload3";
+        qDebug()<<"upload3";
 
-//    ui->favorMusicWidget->musicList.addMusic(ui->localMusicWidget->musicList.getMusic(pos));
+    //    ui->favorMusicWidget->musicList.addMusic(ui->localMusicWidget->musicList.getMusic(pos));
 
-    QMessageBox::information(this,QStringLiteral("上传"),QStringLiteral("上传成功"));
+        QMessageBox::information(this,QStringLiteral("上传"),QStringLiteral("上传成功"));
+    }
+    else{
+        QMessageBox::information(this, QStringLiteral("出错"), QStringLiteral("请登录"));
+    }
 }
 
 void MainWidget::favor_to_playlist()
@@ -520,30 +526,48 @@ void MainWidget::namelist_delete()      //歌单列表中，某个歌曲的删�
 
 void MainWidget::download_music(){      //在此处实现音乐的下载功能
     chuanshu *ss=new chuanshu("0######0#");
-        ss->type = 3;
-        ss->info = ui->SearchlineEdit->text();
-        ss->timer = "";
-        ss->name = userID;
-        ss->fileName = "斯卡布罗集市";
-        ss->wantsendto = "";
-        ss->size = 0;
-        ss->ip = "";
+    QStringList pr=searchmusicname.split("@@@");
+    int pos=ui->searchWidget->currentRow();
+    qDebug() <<"xxxxxxxxxxxxxx     "<<pos<<"   "<<pr[pos];
+            ss->type = 3;
+            ss->info = ui->SearchlineEdit->text();
+            ss->timer = "";
+            ss->name = userID;
+            ss->fileName = pr[pos];
+            ss->wantsendto = "";
+            ss->size = 0;
+            ss->ip = "";
 
-        QString sender="";
-        sender+=QString::number(ss->type)+"#"+(QString)ss->info+"#"+(QString)ss->timer+"#"+(QString)ss->name+"#"+(QString)ss->fileName+"#"+(QString)ss->wantsendto+"#"+QString::number(ss->size)+"#"+(QString)ss->ip;
+            QString sender="";
+            sender+=QString::number(ss->type)+"#"+(QString)ss->info+"#"+(QString)ss->timer+"#"+(QString)ss->name+"#"+(QString)ss->fileName+"#"+(QString)ss->wantsendto+"#"+QString::number(ss->size)+"#"+(QString)ss->ip;
 
-    //        // 发送
-        char la=0xff;
-        qDebug() <<sender.toUtf8();
-        tcpSocket->write(sender.toUtf8()+la);
-        tcpSocket->flush();
+        //        // 发送
+            char la=0xff;
+            qDebug() <<sender.toUtf8();
+            tcpSocket->write(sender.toUtf8()+la);
+            tcpSocket->flush();
 
-        int pos=ui->searchWidget->currentRow();
-            Music tempMusic=ui->searchWidget->musicList.getMusic(pos);
-            ui->localMusicWidget->musicList.addMusic(tempMusic);
-            ui->localMusicWidget->refresh();
+            QString musicurl="file:///D:/bjutmusic/"+pr[pos]+".mp3";       //等待添加搜素结果的数据包名称
+            QUrl testurl(musicurl);
+            qDebug()<<"testurl:"<<testurl;
+            QList<QUrl> URLlist;          //一个url的list
+            URLlist.append(testurl);
+//            musicListWidget
+//            ui->localMusicWidget->musicList.addMusic1(testurl);
+            Music testMusic;
+                testMusic.url=testurl;
+                testMusic.title=pr[pos];
+                testMusic.author="xwh";         //此处应该自动获取歌手名称！！！
+                testMusic.duration=120;
+                testMusic.albumTitle="test case";
+                testMusic.audioBitRate=32000;
+                 ui->localMusicWidget->musicList.addMusic(testMusic);
+//            ui->localMusicWidget->musicList.addMusic(URLlist);
+            qDebug()<<"add to local over";
 
-    QMessageBox::information(this, QStringLiteral("下载"), QStringLiteral("下载成功"));
+              ui->localMusicWidget->refresh();
+
+        QMessageBox::information(this, QStringLiteral("下载"), QStringLiteral("下载成功"));
 }
 
 void MainWidget::musiclist_removeMusic()        //某一歌单中的歌曲进行移除
@@ -694,6 +718,9 @@ void MainWidget::updateInfo()           //更新当前播放歌曲信息
         info.append(" - "+title);
         info.append(" ["+formatTime(player->duration())+"]");       //歌曲时长
         ui->infoLabel->setText(info);           //将获取完的歌曲信息进行展示
+        if(logsta==1){
+            this->freshpr();//获取点赞信息
+        }
         mySystemTray->setToolTip("正在播放："+info);
         //封面图片（应获取"ThumbnailImage" From: https://www.zhihu.com/question/36859497）
         QImage picImage= player->metaData(QStringLiteral("ThumbnailImage")).value<QImage>();
@@ -990,6 +1017,7 @@ void MainWidget::on_localMusicWidget_doubleClicked(const QModelIndex &index)
     int i=index.row();
     playlist->setCurrentIndex(i);
     player->play();
+
     ui->stackedWidget->setCurrentIndex(0);//跳转到当前播放列表
 }
 void MainWidget::on_favorMusicWidget_doubleClicked(const QModelIndex &index)
@@ -1041,6 +1069,7 @@ void MainWidget::on_musicListWidget_doubleClicked(const QModelIndex &index)
     playlist->setCurrentIndex(i);
     player->play();
     ui->stackedWidget->setCurrentIndex(0);//跳转到当前播放列表
+    this->freshpr();
 }
 
 void MainWidget::on_musicListWidget_customContextMenuRequested(const QPoint &pos)
@@ -1197,53 +1226,51 @@ void MainWidget::on_btnAbout_clicked()
 }
 
 void MainWidget::on_musicsraech_clicked(){
-    //this->hide();         //背景主界面不应该被藏起来
-//    dialog1.transfer(tcpSocket,userID);         //进行参数传递
-//    dialog1.show();         //展示搜索框
-//    dialog1.exec();            //搜索框退出
-    //this->show();
-    ui->stackedWidget->setCurrentIndex(4);          //设置widget在第4个page
+    if(logsta==1){
+        //this->hide();         //背景主界面不应该被藏起来
+    //    dialog1.transfer(tcpSocket,userID);         //进行参数传递
+    //    dialog1.show();         //展示搜索框
+    //    dialog1.exec();            //搜索框退出
+        //this->show();
+        ui->stackedWidget->setCurrentIndex(4);          //设置widget在第4个page
 
 
-    //首先建立一个music类
-    Music testMusic;
-    testMusic.url="abcd";
-    testMusic.title="for test";
-    testMusic.author="xwh";
-    testMusic.duration=120;
-    testMusic.albumTitle="test case";
-    testMusic.audioBitRate=32000;
-    ui->searchWidget->musicList.addMusic(testMusic);        //添加歌曲
-//    ui->searchWidget->musicList.addMusic(musiclist[musiclist_index].getMusic(pos));
-    ui->searchWidget->refresh();
-
-    QString strText = ui->SearchlineEdit->text();
-    //若在数据库中搜寻到某个歌曲 则显将结果显示在搜索弹框中
-    if (!strText.isEmpty())             //此处应该修改为当搜索不到歌曲时  则显示“无当前搜索歌曲”（这得结合数据库去实现）
-    {
-        chuanshu *ss=new chuanshu("0######0#");
-        ss->type = 17;
-        ss->info = ui->SearchlineEdit->text();
-        ss->timer = "";
-        ss->name = userID;
-        ss->fileName = "";
-        ss->wantsendto = "";
-        ss->size = 0;
-        ss->ip = "";
-
-        QString sender="";
-        sender+=QString::number(ss->type)+"#"+(QString)ss->info+"#"+(QString)ss->timer+"#"+(QString)ss->name+"#"+(QString)ss->fileName+"#"+(QString)ss->wantsendto+"#"+QString::number(ss->size)+"#"+(QString)ss->ip;
-
-//        // 发送
-        char la=0xff;
-        qDebug() <<sender.toUtf8();
-        tcpSocket->write(sender.toUtf8()+la);
-        tcpSocket->flush();
-//        qDebug() <<"search send";
+        //首先建立一个music类
+        ui->searchWidget->musicList.clear();
+        QString strText = ui->SearchlineEdit->text();
 
 
-        QMessageBox::information(this, QStringLiteral("搜索"), QStringLiteral("搜索内容为%1").arg(strText));
+        //若在数据库中搜寻到某个歌曲 则显将结果显示在搜索弹框中
+        if (!strText.isEmpty())             //此处应该修改为当搜索不到歌曲时  则显示“无当前搜索歌曲”（这得结合数据库去实现）
+        {
+            chuanshu *ss=new chuanshu("0######0#");
+            ss->type = 17;
+            ss->info = ui->SearchlineEdit->text();
+            ss->timer = "";
+            ss->name = userID;
+            ss->fileName = "";
+            ss->wantsendto = "";
+            ss->size = 0;
+            ss->ip = "";
+
+            QString sender="";
+            sender+=QString::number(ss->type)+"#"+(QString)ss->info+"#"+(QString)ss->timer+"#"+(QString)ss->name+"#"+(QString)ss->fileName+"#"+(QString)ss->wantsendto+"#"+QString::number(ss->size)+"#"+(QString)ss->ip;
+
+    //        // 发送
+            char la=0xff;
+            qDebug() <<sender.toUtf8();
+            tcpSocket->write(sender.toUtf8()+la);
+            tcpSocket->flush();
+    //        qDebug() <<"search send";
+
+
+            QMessageBox::information(this, QStringLiteral("搜索"), QStringLiteral("搜索内容为%1").arg(strText));
+        }
     }
+    else{
+        QMessageBox::information(this, QStringLiteral("错误"), QStringLiteral("请登录"));
+    }
+
 
 
 
@@ -1269,54 +1296,83 @@ int MainWidget::doExec()
 void MainWidget::on_btnPersonal_clicked(){      //此处主界面不隐藏起来
     extern int quit_login;
     quit_login=0;           //退出状态重置
-    personal.setSocket(tcpSocket);      //提前设置套接字
-    personal.show();
-    personal.exec();
+     personal.setSocket(tcpSocket);
+
+     personal.show();
+     personal.exec();
 
     if(quit_login==1){
         qDebug()<<"quit"<<endl;
         close();
         this->hide();
         this->~MainWidget();        //尝试进行销毁
+
         loop->exit();
         loop->deleteLater();
     }
 }
 
 void MainWidget::on_dianzan_clicked(){      //同时也需要在数据库中进行记录
-    dianzan_num++;      //点赞次数加1
-    if(dianzan_num%2==1){       //效果
-        ui->dianzan->setStyleSheet("QPushButton{image: url(:/image/image/image/dianzan1.png);border:none;color:rgb(255, 255, 255);}");
-    }else{
-        ui->dianzan->setStyleSheet("QPushButton{image: url(:/image/image/image/dianzan.png);border:none;color:rgb(255, 255, 255);}");
-    }
+     if(this->logsta==1){
+        chuanshu *ss=new chuanshu("0######0#");
+        if(praiseflag==1){
+            ss->type = 20;
+        }
+        else{
+            ss->type=23;
+        }
+        ss->info=player->metaData(QStringLiteral("Title")).toString();
+        QString sender="";
+        sender+=QString::number(ss->type)+"#"+(QString)ss->info+"#"+"0"+"#"+userID+"#"+"0"+"#"+"0"+"#"+"0"+"#"+"0";
+              // 发送
+        char la=0xff;
+        qDebug() <<sender.toUtf8();
+        tcpSocket->write(sender.toUtf8()+la);
+        tcpSocket->flush();
+        this->freshpr();
+     }
+     else{
+         QMessageBox::information(this, QStringLiteral("错误"), QStringLiteral("请登录"));
+     }
+
 }
 
-
+void MainWidget::freshpr(){
+    if(player->metaData(QStringLiteral("Title")).toString()!=""){
+    qDebug()<<"Musicname:"<<player->metaData(QStringLiteral("Title")).toString();
+    chuanshu *sa=new chuanshu("0######0#");
+    sa->type = 18;
+    sa->info=player->metaData(QStringLiteral("Title")).toString();
+    QString sender="";
+    sender+=QString::number(sa->type)+"#"+(QString)sa->info+"#"+"0"+"#"+userID+"#"+"0"+"#"+"0"+"#"+"0"+"#"+"0";
+          // 发送
+    char la=0xff;
+    qDebug() <<sender.toUtf8();
+    tcpSocket->write(sender.toUtf8()+la);
+    tcpSocket->flush();
+    }
+}
 void MainWidget::on_commment_clicked(){
-    commentDialog.setMusicname(player->metaData(QStringLiteral("Title")).toString());
+    if(this->logsta==1){
+        commentDialog.setMusicname(player->metaData(QStringLiteral("Title")).toString());
         commentDialog.settcp(tcpSocket);
         commentDialog.show();           //展示评论界面
         commentDialog.showcomment();
         commentDialog.exec();           //评论界面退出
+    }
+    else{
+        QMessageBox::information(this, QStringLiteral("错误"), QStringLiteral("请登录"));
+    }
 
 }
 
-//void MainWidget::on_login_clicked1(){
-//    qDebug()<<"真正登录";
-//    login1.show();
-//    login1.exec();
-
-//}
 void MainWidget::testlogin(){
-//    int stateflag=0;        //登录状态判断
     test.setSocket(tcpSocket);      //传输套接字
     test.show();
     test.exec();
     userID=test.loginID;
 
     qDebug()<<"test.loginID:"<<test.loginID;
-//    if(stateflag)   ui->loginlabel->setText("已登录");
 }
 
 void MainWidget::socket_Read_Data()
@@ -1326,11 +1382,6 @@ void MainWidget::socket_Read_Data()
     QByteArray m_buffer_car;
     //读取缓冲区数据
     buffer = tcpSocket->readAll();
-    m_buffer_car.append(buffer);   //读取数据放入缓冲区
-    qint64 tune_cmd;
-    qint64 struct_count;
-    qint64 total_bytes;
-    int total_length = m_buffer_car.size();
     if(!buffer.isEmpty())
     {
         str=QString::fromLocal8Bit(buffer.data());//将收到的utf-8格式转换回String
@@ -1338,7 +1389,7 @@ void MainWidget::socket_Read_Data()
     }
     QStringList bag=str.split("+*+");
     for(int i=0;i<bag.length();i++){
-        qDebug()<<"bag data:"<<bag[i];
+        qDebug()<<bag[i]<<endl;
         QStringList sstr=bag[i].split("#");
         qDebug()<<"type:"<<sstr[0].toInt();
         switch(sstr[0].toInt()){
@@ -1346,93 +1397,144 @@ void MainWidget::socket_Read_Data()
             qDebug()<<"s1";
             QStringList arguments;//用于传参数
             QString program = "D:\\Transfer\\receive.exe"; //外部程序地址
-            arguments <<"10.19.14.181"<<"8888";
+            arguments <<ipcon<<"8888";
             qDebug()<<"s2";
             QProcess process(this);
             process.startDetached(program, arguments);//启动程序
             process.close();
             qDebug()<<"s3";
             break;
-        }case 10:{      //在登录成功完成后接收数据将用户信息传入到个人界面中
-            qDebug()<<"case 10:";
-            QString info=sstr[4];       //接受回传信息
-            QStringList personalinfo=info.split("$");
-            qDebug()<<"sstr[4]:"<<sstr[4];
-
-            //进行内置用户信息
-            personal.setTel(personalinfo[4]);
-            personal.setEmail(personalinfo[5]);
-            personal.setUserID(personalinfo[1]);
-            personal.setUsername(personalinfo[0]);
-            personal.setUserpassword(personalinfo[3]);
-            personal.setFriendinfo(sstr[1]);
-            personal.setGender(personalinfo[2]);
-            personal.showInfo();       //刷新用户ID
-           break;
-        }case 11:{      //接到用户信息
-            qDebug()<<"case 11:";
-            QString info=sstr[1];       //接受回传信息
-            QStringList personalinfo=info.split("$");
-            qDebug()<<"sstr[1]:"<<sstr[1];
-
-            //进行内置用户信息
-            personal.setTel(personalinfo[4]);
-            personal.setEmail(personalinfo[5]);
-            personal.setUserID(personalinfo[1]);
-            personal.setUsername(personalinfo[0]);
-            personal.setUserpassword(personalinfo[3]);
-            personal.setFriendinfo(sstr[1]);
-            personal.setGender(personalinfo[2]);
-            personal.showInfo();       //刷新用户ID
-            break;
+        }case 9:{       //接收好友信息
+//            QStringList friendlist=str.split("#");            //好友列表
+//            personal.setFriend(sstr[1]);     //向用户界面传输好友列表
+//            qDebug()<<"main friendlist:"<<sstr[1];
         }
-
-        case 15:{  //登录成功
-
-            if(sstr[1].toInt()==0){ //当登录完成的回包的第二个字段为0时 代表能正常接受
-                chuanshu *start=new chuanshu("0######0#");         //先建立一个发送类(在登录成功之后再发送给服务器)
-                QString s1="";
-                s1+="$";
-                s1+=userID+"$";
-                s1+="$";
-                s1+="$";    //密码部分设置为空
-                s1+="$";
-                s1+="$";
-                s1+="";
-
-                qDebug()<<"login info2:"<<s1;
-
-                start->type = 0;
-                start->info = s1;
-                start->timer = "";
-                start->name = userID;
-                start->fileName = "";
-                start->wantsendto = "";
-                start->size = 0;
-                start->ip = "10.24.6.228";      //客户端电脑一个所在的ip
-                QString sender1="";
-                sender1+=QString::number(start->type)+"#"+(QString)start->info+"#"+(QString)start->timer+"#"+(QString)start->name+"#"+(QString)start->fileName+"#"+(QString)start->wantsendto+"#"+QString::number(start->size)+"#"+(QString)start->ip;
-                char la=0xff;
-                qDebug() <<sender1.toUtf8();
-                tcpSocket->write(sender1.toUtf8()+la);
-                tcpSocket->flush();
-                qDebug() <<"login over";
+        case 10:{      //在登录成功完成后接收数据将用户信息传入到个人界面中
+                    qDebug()<<"case 10:";
+                    QString info=sstr[4];       //接受回传信息
+                    QStringList personalinfo=info.split("$");
+                    qDebug()<<"sstr[4]:"<<sstr[4];
 
 
-                ui->loginlabel->setText("已登录");
-                QMessageBox::information(this, QStringLiteral("登录"), QStringLiteral("登录成功"));//显示登录成功信息的弹窗
-            }else  QMessageBox::information(this, QStringLiteral("登录"), QStringLiteral("登录失败"));
-            break;
-        }
+                    personal.setFriend(sstr[1]);     //向用户界面传输好友列表
+                    qDebug()<<"main friendlist:"<<sstr[1];
+
+                    //进行内置用户信息
+                    personal.setTel(personalinfo[4]);
+                    personal.setEmail(personalinfo[5]);
+                    personal.setUserID(personalinfo[1]);
+                    personal.setUsername(personalinfo[0]);
+                    personal.setUserpassword(personalinfo[3]);
+                    personal.setFriendinfo(sstr[1]);
+                    personal.setGender(personalinfo[2]);
+                    personal.showInfo();       //刷新用户ID
+                   break;
+                }
+        case 11:{      //接到用户信息
+                    qDebug()<<"case 11:";
+                    QString info=sstr[1];       //接受回传信息
+                    QStringList personalinfo=info.split("$");
+                    qDebug()<<"sstr[1]:"<<sstr[1];
+
+                    //进行内置用户信息
+                    personal.setTel(personalinfo[4]);
+                    personal.setEmail(personalinfo[5]);
+                    personal.setUserID(personalinfo[1]);
+                    personal.setUsername(personalinfo[0]);
+                    personal.setUserpassword(personalinfo[3]);
+                    personal.setFriendinfo(sstr[1]);
+                    personal.setGender(personalinfo[2]);
+                    personal.showInfo();       //刷新用户ID
+                    break;
+                }
+        case 15:{
+                    if(sstr[1].toInt()==0){ //当登录完成的回包的第二个字段为0时 代表能正常接受
+                        chuanshu *start=new chuanshu("0######0#");         //先建立一个发送类(在登录成功之后再发送给服务器)
+                        QString s1="";
+                        s1+="$";
+                        s1+=userID+"$";
+                        s1+="$";
+                        s1+="$";    //密码部分设置为空
+                        s1+="$";
+                        s1+="$";
+                        s1+="";
+
+                        qDebug()<<"login info2:"<<s1;
+
+                        start->type = 0;
+                        start->info = s1;
+                        start->timer = "";
+                        start->name = userID;
+                        start->fileName = "";
+                        start->wantsendto = "";
+                        start->size = 0;
+                        start->ip = "10.24.6.228";      //客户端电脑一个所在的ip
+                        QString sender1="";
+                        sender1+=QString::number(start->type)+"#"+(QString)start->info+"#"+(QString)start->timer+"#"+(QString)start->name+"#"+(QString)start->fileName+"#"+(QString)start->wantsendto+"#"+QString::number(start->size)+"#"+(QString)start->ip;
+                        char la=0xff;
+                        qDebug() <<sender1.toUtf8();
+                        tcpSocket->write(sender1.toUtf8()+la);
+                        tcpSocket->flush();
+                        qDebug() <<"login over";
+
+                        this->logsta=1;
+                        ui->loginlabel->setText("已登录");
+                        QMessageBox::information(this, QStringLiteral("登录"), QStringLiteral("登录成功"));//显示登录成功信息的弹窗
+                        this->freshpr();
+                    }
+                    else  {
+                        this->logsta=0;
+                        QMessageBox::information(this, QStringLiteral("登录"), QStringLiteral("登录失败"));
+                    }
+                    break;
+                }
         case 16:{
             if(sstr[1].toInt()==0){
                 QMessageBox::information(this, QStringLiteral("注册"), QStringLiteral("注册成功"));//显示登录成功信息的弹窗
             }
             break;
         }
+        case 17:{
+            qDebug()<<sstr[1];
+            QStringList pr=sstr[1].split("|");
+            searchmusicname="";
+            for(int i=0;i<pr.length();i++){
+                    QStringList sr=pr[i].split("$");
+                    Music testMusic;
+                    testMusic.url="1";
+                    testMusic.title=sr[0];
+                    testMusic.author=sr[1];
+                    testMusic.duration=120;
+                    testMusic.albumTitle="null";
+                    testMusic.audioBitRate=32000;
+                    ui->searchWidget->musicList.addMusic(testMusic);        //添加歌曲
+                    searchmusicname+=sr[0]+"@@@";
+
+            }
+            qDebug()<<"music name"<<searchmusicname;
+            ui->searchWidget->refresh();
+            break;
+        }
+        case 18:{
+           QStringList pr=sstr[1].split("$");
+           if(pr[0]=="1"){
+               praiseflag=0;
+                ui->dianzan->setStyleSheet("QPushButton{image: url(:/image/image/image/dianzan1.png);border:none;color:rgb(255, 255, 255);}");
+           }
+           else{
+               praiseflag=1;
+               ui->dianzan->setStyleSheet("QPushButton{image: url(:/image/image/image/dianzan.png);border:none;color:rgb(255, 255, 255);}");
+           }
+            ui->praise->setText(pr[1]);
+            break;
+        }
         case 19:{
+            if(sstr[1]!="none"){
                 commentDialog.setrecv(sstr[1]);
-                break;
+                commentDialog.userid=this->userID;
+
+            }
+            break;
             }
         default:{
 
@@ -1440,11 +1542,8 @@ void MainWidget::socket_Read_Data()
 
     }
     }
-    qDebug()<<" ";
 
 }
-
-
 
 void MainWidget::on_register_clicked(){     //注册按键实现
     register1.show();

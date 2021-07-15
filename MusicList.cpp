@@ -15,6 +15,7 @@ MusicList::MusicList(const QList<QUrl> &urls, QString iname)
 void MusicList::addMusic(const QList<QUrl> &urls)
 {
     //实测这里耗时较长，所以添加一个进度显示对话框
+
     QProgressDialog proDialog(u8"添加进度",u8"取消",0,urls.size());
     proDialog.setMinimumSize(350,150);
     proDialog.setWindowModality(Qt::WindowModal);
@@ -37,6 +38,23 @@ void MusicList::addMusic(const QList<QUrl> &urls)
         }
         if(proDialog.wasCanceled()) break;
     }
+}
+
+void MusicList::addMusic1(QUrl url){
+    qDebug()<<"hhhh";
+//    QMimeDatabase db;
+//    QMimeType mime = db.mimeTypeForFile(url.toLocalFile());
+//    if(mime.name()!="audio/mpeg"&&mime.name()!="audio/flac"){
+////        break;
+//    }
+    //剩下的符合类型
+    qDebug()<<"before";
+    music.push_back(Music(url));
+    qDebug()<<"add singe music titile:";
+    qDebug()<<music[music.size()-1].title;
+//    if(sql_flag){
+//        music[music.size()-1].insertSQL(name);
+//    }
 }
 
 void MusicList::addMusic(const Music &iMusic)

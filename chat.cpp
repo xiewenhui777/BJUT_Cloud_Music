@@ -12,3 +12,6 @@ chat::~chat()
 {
     delete ui;
 }
+void chat::showInfo(){        //显示好友名称
+    ui->friendname->setText(friname);
+}

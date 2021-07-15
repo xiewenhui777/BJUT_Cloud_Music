@@ -2708,6 +2708,22 @@ color:rgb(255, 255, 255);
     <bool>true</bool>
    </property>
   </widget>
+  <widget class="QLabel" name="praise">
+   <property name="geometry">
+    <rect>
+     <x>940</x>
+     <y>710</y>
+     <width>54</width>
+     <height>12</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">color: rgb(255, 0, 0);</string>
+   </property>
+   <property name="text">
+    <string/>
+   </property>
+  </widget>
  </widget>
  <layoutdefault spacing="6" margin="11"/>
  <customwidgets>

@@ -85,8 +85,6 @@ void PersonalDialog::info_clicked()        //显示个人资料
     info1.settel(usertel);
     info1.info_show();      //个人信息先显示
     info1.setSocket(tcpSocket);     //传输套接字
-
-
     info1.show();
     info1.exec();
 }
@@ -96,11 +94,12 @@ void PersonalDialog::on_feedback_clicked(){
     feedback.exec();
 }
 
-void PersonalDialog::on_friend_clicked(){
+void PersonalDialog::on_friend_clicked(){       //好友列表展示
+    fri.setFriend(friendlist);      //传输好友列表信息
+    fri.showlist();                 //好友列表内置
     fri.show();
     fri.exec();
 }
-
 void PersonalDialog::showInfo(){        //显示个人信息（如用户名
     ui->namelabel->setText(username);       //设置用户名
 }

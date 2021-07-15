@@ -18,12 +18,13 @@ class testDialog : public QDialog
 public:
     explicit testDialog(QWidget *parent = nullptr);
     ~testDialog();
+
     void setSocket(QTcpSocket *soc)
     {
         tcpSocket = soc;
+
     }
     QString loginID;
-
 private:
     Ui::testDialog *ui;
     QTcpSocket *tcpSocket;

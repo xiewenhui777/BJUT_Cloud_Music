@@ -41,7 +41,7 @@ QString Music::getLyricFile()
 
 QString Music::getInfo() const
 {
-    return author+" - "+title+" ["+formatTime(duration)+"]";
+    return title+"                   "+author;
 }
 
 void Music::detail()        //歌曲详细信息

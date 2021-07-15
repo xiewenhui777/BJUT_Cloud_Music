@@ -14,10 +14,9 @@ LandWidget::LandWidget(QWidget *parent) :
     ui(new Ui::LandWidget)
 {
     ui->setupUi(this);
-    setWindowFlags(windowFlags()&~Qt::WindowMaximizeButtonHint);    // 禁止最大化按钮                    // 禁止拖动窗口大小
+    setWindowFlags(windowFlags()&~Qt::WindowMaximizeButtonHint);    // 禁止最大化按钮
     setWindowTitle(QStringLiteral("登录"));    //设置窗口标题
     qDebug()<<"aa";
-
 }
 
 
@@ -27,9 +26,10 @@ LandWidget::~LandWidget()
 }
 
 
+
+
 void LandWidget::on_login_clicked()
 {
-
     chuanshu *ss=new chuanshu("0######0#");         //先建立一个发送类
     QString s="";
     s+="$";
@@ -50,6 +50,7 @@ void LandWidget::on_login_clicked()
     ss->wantsendto = "";
     ss->size = 0;
     ss->ip = "";
+
 
 
     extern int quit_login;
@@ -84,7 +85,6 @@ void LandWidget::on_login_clicked()
     QString sender1="";
     sender1+=QString::number(start->type)+"#"+(QString)start->info+"#"+(QString)start->timer+"#"+(QString)start->name+"#"+(QString)start->fileName+"#"+(QString)start->wantsendto+"#"+QString::number(start->size)+"#"+(QString)start->ip;
 
-
     mainwidget->show();         //启动主界面
 
     if(mainwidget->doExec() == MainWidget::Rejected){           //代表主界面的退出  因此result的状态会设置为rejected
@@ -94,5 +94,4 @@ void LandWidget::on_login_clicked()
     }
 
 }
-
 
